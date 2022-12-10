@@ -6,8 +6,6 @@ import { useLocation } from 'react-router-dom';
 import { User } from '../../utils/types';
 
 
-
-
 interface PrintPreviewTypes{
 user?:User
 }
