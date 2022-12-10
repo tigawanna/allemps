@@ -9,6 +9,7 @@ import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { PostsCard } from './PostsCard';
 import { AddPost } from './PostsForm';
 import { useParams } from 'react-router-dom';
+import { PBChannels } from './../../api/pb-api-types';
 
 interface PostsProps {
 
@@ -23,9 +24,18 @@ export const Posts: React.FC<PostsProps> = ({}) => {
 const params = useParams<ParamsT>()
 const channel_id = params.channel_id??"0ds0fovs0nsas0k"
 
-    const posts_url = `https://emps.tigawanna.tech/api/collections/posts/records?expand=channel,emp&filter=channel="${channel_id}"`
+const posts_url = `https://emps.tigawanna.tech/api/collections/posts/records?expand=channel,emp&filter=channel="${channel_id}"`
+const channels_url = `https://emps.tigawanna.tech/api/collections/channels/records?filter=id="${channel_id}"`
+
+
 const [isOpen, setIsOpen] = React.useState(false);
 const query = useQuery(['posts',channel_id],()=>getRecords(posts_url))
+const channel_query = useQuery(['channels',channel_id], () => getRecords(channels_url))
+const channel = channel_query?.data as PBChannels
+const current_channel=channel?.items?.at(0)
+
+console.log("current channel ",current_channel)
+
 const data = query?.data as PBPosts
 const posts_list = data?.items
 console.log("posts === ",data)
@@ -35,8 +45,10 @@ return (
 
  {/*  posts */}
 <div className='w-full flex items-center p-2'>
-  <div className='w-full p-2 flex items-center justify-center font-bold text-xl'>
-    Posts
+  <div 
+  style={{backgroundColor:current_channel?.color}}
+  className='w-full p-2 flex items-center justify-center font-bold text-xl '>
+   {current_channel?.name}
  </div>
  <div className='fixed bottom-[10%] right-[4%]'>
     <TheIcon Icon={FaPlus} iconAction={()=> setIsOpen(prev => !prev)} size='50'/>
