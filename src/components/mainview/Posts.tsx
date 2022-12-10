@@ -8,16 +8,24 @@ import { PBPosts} from '../../api/pb-api-types';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { PostsCard } from './PostsCard';
 import { AddPost } from './PostsForm';
+import { useParams } from 'react-router-dom';
 
 interface PostsProps {
 
 }
+type ParamsT = {
+    channel_id: string
+}
 
 export const Posts: React.FC<PostsProps> = ({}) => {
-    const posts_url = "https://emps.tigawanna.tech/api/collections/posts/records"
 
+
+const params = useParams<ParamsT>()
+const channel_id = params.channel_id??"0ds0fovs0nsas0k"
+
+    const posts_url = `https://emps.tigawanna.tech/api/collections/posts/records?expand=channel,emp&filter=channel="${channel_id}"`
 const [isOpen, setIsOpen] = React.useState(false);
-const query = useQuery(['posts'],()=>getRecords(posts_url))
+const query = useQuery(['posts',channel_id],()=>getRecords(posts_url))
 const data = query?.data as PBPosts
 const posts_list = data?.items
 console.log("posts === ",data)

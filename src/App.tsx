@@ -64,7 +64,7 @@ function App() {
               // loader: deferredBlogPostsLoader,
             },
             {
-              path:':id',
+              path:':channel_id',
               element: <MainView user={user} />,
               // loader: deferredBlogPostsLoader,
             },
