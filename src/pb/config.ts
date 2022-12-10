@@ -117,3 +117,14 @@ export const getPrevdata = (
     queryClient.getQueryData(index);
   // console.log("previous items", previous);
 };
+
+export const makeUrl = (
+  coll_name: string,
+  coll_id: string,
+  media: string
+) => {
+  if (media) {
+    return `${pb_url}/api/files/${coll_name}/${coll_id}/${media}`;
+  }
+  return;
+};

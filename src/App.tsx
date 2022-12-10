@@ -14,6 +14,8 @@ import { MainViewLayout } from './pages/mainview/MainViewLayout';
 import { MainView } from './pages/mainview/MainView';
 import { getUser } from './pb/config';
 import { LoaderElipse } from './shared/loaders/Loaders';
+import { EmpsLayout } from './pages/emp/EmpsLayout';
+import { Profile } from './pages/emp/Profile';
 
 
 
@@ -71,7 +73,22 @@ function App() {
 
           ],
         },
-
+        {
+          path: '/profile',
+          element: <EmpsLayout user={user} />,
+          children: [
+            {
+              index: true,
+              element: <Profile user={user} />,
+              // loader: deferredBlogPostsLoader,
+            },
+            // {
+            //   path: '/auth/signup',
+            //   element: <Signup />,
+            //   // loader: blogPostLoader,
+            // },
+          ],
+        },
 
 
         {

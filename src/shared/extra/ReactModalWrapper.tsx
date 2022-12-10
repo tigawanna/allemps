@@ -25,8 +25,8 @@ interface ModalStyles {
     content: React.CSSProperties
 }
 export const ReactModalWrapper: React.FC<ReactModalWrapperProps> = ({isOpen, closeModal, styles, child, deps }) => {
-console.log("styles === ",styles)
-    const{isMobile,width}= useCheckInMobile()  
+
+const{isMobile,width}= useCheckInMobile()  
 const adjustSize=(mobile:boolean,size:string,mobile_size:string)=>{
 return mobile?mobile_size:size
 }

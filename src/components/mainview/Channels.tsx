@@ -12,13 +12,15 @@ import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { Link } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { User } from '../../utils/types';
 
 interface ChannelsProps {
-
+   user?:User
 }
 
 export const Channels: React.FC<ChannelsProps> = ({}) => {
-const cahhnels_url = "https://emps.tigawanna.tech/api/collections/channels/records"
+    const cahhnels_url = "https://emps.tigawanna.tech/api/collections/channels/records?sort=-created"
 const [show,setShow] = React.useState(true)
 const [isOpen, setIsOpen] = React.useState(false);
 const query = useQuery(['channels'],()=>getRecords(cahhnels_url))
@@ -74,7 +76,7 @@ isLoading={query.isLoading}
 
 
 interface AddChannelProps {
-
+    closeModal?: () => void
 }
 
 interface FormInput {
@@ -94,9 +96,9 @@ interface Validate {
 }
 
 
-export const AddChannel: React.FC<AddChannelProps> = ({}) => {
+export const AddChannel: React.FC<AddChannelProps> = ({closeModal}) => {
     const editing =true
-   
+   const queryClient = useQueryClient()
     const validate = ({ input, setError }: Validate) => {
         
          const assertNotNull = () => {
@@ -144,9 +146,12 @@ export const AddChannel: React.FC<AddChannelProps> = ({}) => {
         {
             onSettled: () => {
                 //   queryClient.invalidateQueries(['shops-bills',shop_id as string]);
+                queryClient.invalidateQueries(['channels']);
+                closeModal&&closeModal()
+                
             },
             onError: (err: any) => {
-                console.log("errror logging in ", err.data)
+                // console.log("errror logging in ", err.data)
                 setError({ name: "main", message: concatErrors(err) })
             }
         })

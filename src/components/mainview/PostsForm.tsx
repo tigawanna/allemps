@@ -1,13 +1,17 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import { createRecords } from "../../api/pb"
 import TheForm from "../../shared/form/TheForm"
 import { FormOptions } from "../../shared/form/types"
+import { User } from "../../utils/types"
 import { concatErrors } from "../../utils/utils"
 
 
-interface AddPostProps {
 
+interface AddPostProps {
+    closeModal?: () => void
+    ch_id:string
+    user?:User
 }
 interface FormInput {
     title: string;
@@ -23,9 +27,9 @@ interface Validate {
 
 
 
-export const AddPost: React.FC<AddPostProps> = ({ }) => {
+export const AddPost: React.FC<AddPostProps> = ({closeModal,ch_id,user}) => {
     const editing = true
-
+  const queryClient = useQueryClient()
     const validate = ({ input, setError }: Validate) => {
 
         const assertNotNull = () => {
@@ -48,15 +52,15 @@ export const AddPost: React.FC<AddPostProps> = ({ }) => {
         }
 
 
-        return false
+        return true
     }
 
     const form_input: FormOptions[] = [
         { field_name: "title", field_type: "text", default_value: "", editing },
         { field_name: "body", field_type: "textarea", default_value: "", editing },
         { field_name: "media", field_type: "file", default_value: "", editing },
-        { field_name: "emp", field_type: "text", default_value: "", editing, hidden: true },
-        { field_name: "channel", field_type: "text", default_value: "", editing, hidden: true },
+        { field_name: "emp", field_type: "text", default_value:user?.id, editing, hidden: true },
+        { field_name: "channel", field_type: "text", default_value:ch_id, editing, hidden: true },
 
     ]
 
@@ -80,7 +84,8 @@ export const AddPost: React.FC<AddPostProps> = ({ }) => {
         },
         {
             onSettled: () => {
-                //   queryClient.invalidateQueries(['shops-bills',shop_id as string]);
+                queryClient.invalidateQueries(['posts',ch_id]);
+                closeModal && closeModal()
             },
             onError: (err: any) => {
                 console.log(

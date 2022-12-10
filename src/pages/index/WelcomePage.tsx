@@ -12,7 +12,7 @@ export const WelcomePage: React.FC<WelcomePageProps> = ({user}) => {
     const navigate = useNavigate()
     React.useEffect(() => {
         if (user?.email) {
-            navigate('/post')
+            navigate('/main')
         }
     }, [user])
 

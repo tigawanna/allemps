@@ -2,9 +2,9 @@ import React from 'react'
 import TheForm from '../../shared/form/TheForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormOptions } from '../../shared/form/types';
-import { client } from './../../pb/config';
+import { client } from '../../pb/config';
+import { loginUser } from '../../api/methods';
 import { concatErrors } from '../../utils/utils';
-
 
 
 
@@ -17,7 +17,7 @@ export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
     const editing=true
 
     const [authing,setAuthing]=React.useState(true)
-    const [error, setError] = React.useState({ name: "", message: "" })
+    const [error, setError] = React.useState({ name: "main", message: "" })
     const queryClient = useQueryClient();
 
     const form_input: FormOptions[] = [
@@ -27,15 +27,16 @@ export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
 //    console.log("error in login ==== > ",error) 
     const addUserMutation = useMutation(async(vars: { coll_name: string, payload: FormData }) => {
        try{
-            const result = await client.collection('emps').authWithPassword(
-                vars.payload.get('email') as string,
-                vars.payload.get('password') as string
-            )
-            queryClient.setQueryData(['user'], () => result.record);
-            setAuthing(false)
+           await loginUser(
+               vars.payload.get('email') as string,
+               vars.payload.get('password') as string
+           )
+            // queryClient.setQueryData(['user'], () => result.record);
+            // setAuthing(false)
+
         }
         catch(err:any){
-            // console.log("error in login mutation catch block", err.message)
+            console.log("error in login mutation catch block", err.message)
             // setError({ name: "main", message: err?.messge })
             throw err
        }
@@ -115,8 +116,8 @@ const validate = ({ input, setError }: Validate) => {
         setError({ name: "email", message: "invalid email pattern" })
         return false
     }
-    if (input.password.length < 8) {
-        setError({ name: "password", message: "password minimun length is 8" })
+    if (input.password.length < 1) {
+        setError({ name: "password", message: "password minimun length is 1" })
         return false
     }
 

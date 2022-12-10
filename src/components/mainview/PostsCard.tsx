@@ -33,15 +33,11 @@ export const PostsCard: React.FC<PostsCardProps> = ({ posts }) => {
 
 
 
-const makeUrl = (coll_name: string, coll_id: string, media: string) => {
-    if (media) {
-        return `${pb_url}/api/files/${coll_name}/${coll_id}/${media}`
-    }
-    return
-}
+
 
 
 import React from 'react'
+import { makeUrl } from './../../pb/config';
 
 interface PostsCardUserProps {
 emp:Emp

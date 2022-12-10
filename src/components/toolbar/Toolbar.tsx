@@ -1,5 +1,4 @@
 import React from "react";
-import { useTheme } from "./../../shared/hooks/themeHook";
 import {
   BsSunFill,
   BsFillMoonFill,
@@ -10,6 +9,11 @@ import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { TheIcon } from "../../shared/extra/TheIcon";
 import { User } from "../../utils/types";
+import { useTheme } from './../../shared/hooks/themeHook';
+import { ReactModalWrapper } from './../../shared/extra/ReactModalWrapper';
+import { ProfileMenu } from './../../pages/emp/ProfileMenu';
+import { makeUrl } from "../../pb/config";
+
 
 interface ToolbarProps {
   user: User
@@ -28,9 +32,10 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const toggle = () => {
     theme.setTheme(nextTheme);
   };
-  const [open, setOpen] = React.useState(false);
-  const avatar = user?.user_metadata?.avatar_url
-
+  const [isOpen, setIsOpen] = React.useState(false);
+  const avatar = makeUrl('emps', user?.id as string, user?.avatar)
+  
+// console.log("profile ===",avatar)
   return (
     <div className="w-full h-10 flex justify-between items-center">
 
@@ -61,7 +66,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
          md:border-2 rounded-xl  font-bold dark:font-normal ">
 
-        <div className="w-full  h-full flex justify-center items-center
+        {/* <div className="w-full  h-full flex justify-center items-center
          hover:text-blue-700">
         <Link to="/main">main</Link>
        </div>
@@ -70,28 +75,34 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       <div className="w-full px-1 h-full flex justify-center items-center 
       hover:text-rose-700">
           <Link to="/test">test</Link>
-        </div>
+        </div> */}
 
 
       </div>
       
       <div className="w-fit h-full flex justify-end items-center">
+        <ReactModalWrapper
+          isOpen={isOpen}
+          closeModal={() => setIsOpen(false)}
+          child={<ProfileMenu avatar={avatar as string} setOpen={setIsOpen} user={user} />}
+          styles={{ content_top: "5%" }}
+        />
       <div className="  rounded-md  flex justify-center items-center
               w-16  h-full  aspect-square">
-          {!user ? (
-            <Link to="/auth">
+          {avatar==="" ? (
               <TheIcon
-                Icon={FaUserCircle}
+               Icon={FaUserCircle}
                 size={"25"}
                 color={""}
+                iconAction={() => setIsOpen(true)}
               />
-            </Link>
+         
           ) : (
             <img
-              src={avatar}
+                src={avatar}
               alt={""}
-              className="rounded-[50%] hover:rounded-sm border-2 max-h-[40px] aspect-square"
-              onClick={() => setOpen(true)}
+              className="rounded-[50%] hover:rounded-sm border-2 max-h-[40px] h-10 aspect-square"
+              onClick={() => setIsOpen(true)}
             />
           )}
         </div>
