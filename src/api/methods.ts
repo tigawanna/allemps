@@ -81,7 +81,7 @@ export const loginUser = async (
     
   }
   if(data.token){
-    updateUser({email:data.email,token:data.token})
+    // updateUser({email:data.email,token:data.token})
   }
   console.log("login response data ====> ", data,localValues);
 

@@ -3,11 +3,13 @@ import ReactToPrint from 'react-to-print';
 import { PrintThis } from './Printme';
 import { FaPrint } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
-import { User } from '../../supa/user-types';
+import { User } from '../../utils/types';
+
+
 
 
 interface PrintPreviewTypes{
-user?:User|null
+user?:User
 }
 interface TheTableProps {
 title:string    
