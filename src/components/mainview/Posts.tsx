@@ -1,17 +1,11 @@
 import React from 'react'
 import { QueryStateWrapper } from '../../shared/extra/QueryStateWrapper';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRecords, getRecords} from '../../api/pb';
-import { RiArrowDropDownLine } from 'react-icons/ri'
+import {  useQuery } from '@tanstack/react-query';
+import {  getRecords} from '../../api/pb';
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus } from 'react-icons/fa';
-
-import { concatErrors } from '../../utils/utils';
-import { PBChannels, PBPosts, PostsItem } from '../../api/pb-api-types';
-import { FormOptions } from '../../shared/form/types';
-import TheForm from '../../shared/form/TheForm';
+import { PBPosts} from '../../api/pb-api-types';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
-import { pb_url } from './../../utils/env';
 import { PostsCard } from './PostsCard';
 import { AddPost } from './PostsForm';
 

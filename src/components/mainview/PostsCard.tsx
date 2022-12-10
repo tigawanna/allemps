@@ -1,5 +1,5 @@
 import { PostsItem } from "../../api/pb-api-types";
-import { pb_url } from "../../utils/env";
+import { pb_url } from './../../utils/env';
 
 interface PostsCardProps {
     posts: PostsItem
@@ -19,7 +19,7 @@ export const PostsCard: React.FC<PostsCardProps> = ({ posts }) => {
                 <img src={makeUrl('posts', posts.id, posts.media)} />
             </div>
 
-            <div className='w-full flex items-center justify-center p-2'>
+            <div className='w-full flex items-center justify-center p-2 prose'>
                 <div className='w-full  line-clamp-4'>
                     {posts.body}
                 </div>
