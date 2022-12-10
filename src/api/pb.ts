@@ -1,8 +1,5 @@
-
-
-
 export const getRecords=async(url:string)=>{
-    try{
+try{
 let headersList = {
   Accept: "*/*",
   //   "User-Agent":
@@ -17,7 +14,7 @@ let response = await fetch(url, {
 return await response.json();
 }
 catch(e){
-     throw e
+throw e
 }
 
 }
@@ -25,22 +22,34 @@ catch(e){
 
 
 
-export interface PBChannels {
-  page: number
-  perPage: number
-  totalItems: number
-  totalPages: number
-  items: Item[]
+
+export const createRecords=async(data:FormData,url:string)=>{
+try {
+let headersList = {
+  Accept: "*/*",
+//   "User-Agent":
+//     "Thunder Client (https://www.thunderclient.com)",
+  // "Content-Type": "application/json",
+};
+
+// let bodyContent = JSON.stringify({
+//   name: "test ground",
+//   " description": "testing channel ",
+//   color: "#33764",
+// });
+
+let response = await fetch(
+  url,
+  {
+    method: "POST",
+    body: data,
+    headers: headersList,
+  }
+);
+
+return await response.json();
+} catch (e) {
+  throw e;
 }
 
-export interface Item {
-  collectionId: string
-  collectionName: string
-  color: string
-  created: string
-  description: string
-  id: string
-  name: string
-  updated: string
 }
-

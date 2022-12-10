@@ -25,7 +25,8 @@ interface ModalStyles {
     content: React.CSSProperties
 }
 export const ReactModalWrapper: React.FC<ReactModalWrapperProps> = ({isOpen, closeModal, styles, child, deps }) => {
-const{isMobile,width}= useCheckInMobile()  
+console.log("styles === ",styles)
+    const{isMobile,width}= useCheckInMobile()  
 const adjustSize=(mobile:boolean,size:string,mobile_size:string)=>{
 return mobile?mobile_size:size
 }
@@ -38,14 +39,15 @@ const customStyles: ModalStyles = {
             right: 0,
             bottom: 0,
             backgroundColor: styles?.overlay_bg_color??'rgba(255, 255, 255, 0.75)',
+  
         },
         content: {
             position: 'absolute',
-            top: styles?.overlay_bg_color??adjustSize(isMobile,'1%','5%'),
+            top: styles?.content_top??adjustSize(isMobile,'1%','5%'),
             left: styles?.content_left ?? adjustSize(isMobile, '15%', '5%'),
             right: styles?.content_right ?? adjustSize(isMobile, '15%', '5%'),
             bottom: styles?.content_bottom ?? adjustSize(isMobile, '2%', '5%'),
-            overflow: 'auto',
+            overflow: 'hidden',
             WebkitOverflowScrolling: 'touch',
             border:styles?.content_border??'',
             borderRadius:styles?.content_border_radius??'10px',
@@ -67,9 +69,10 @@ const customStyles: ModalStyles = {
             <button
             onClick={closeModal}
             className='absolute top-10 right-10 hover:text-bold hover:text-red-600'>X</button>
+            <div className="h-full w-full overflow-auto scroll-bar">
             {/* @ts-expect-error */}
             {React.isValidElement(child) ? React.cloneElement(child, { deps, isOpen, closeModal }) : child}
-
+            </div>
 
         </Modal>
     );

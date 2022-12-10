@@ -1,6 +1,7 @@
 import React from 'react'
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { useQuery } from '@tanstack/react-query';
+import { AddChannel } from '../mainview/Channels';
 
 
 interface TestProps {
@@ -19,19 +20,17 @@ export const Test: React.FC<TestProps> = ({}) => {
 
 
 return (
-    <div  className=" w-[100%]  bg-purple-500">
+    <div className=" w-full   px-2 bg-slate-700  first-letter:text-white">
         <button onClick={() => setIsOpen(true)}>
             Click to Open Modal
         </button>
        <ReactModalWrapper
        isOpen={isOpen}
        closeModal={()=>setIsOpen(false)}
-       styles={{overlay_bg_color:''}}
-       child={<TestChild/>}
+       child={<AddChannel/>}
+       styles={{content_top:"5%"}}
        />
-
-
-    </div>
+  </div>
 
 );
 }

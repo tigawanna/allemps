@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormOptions } from './types';
 import { AiOutlineCamera } from 'react-icons/ai'
+import { TheIcon } from '../extra/TheIcon';
 
 interface TheFileInputProps {
   handleChange(event: React.ChangeEvent<HTMLInputElement>): Promise<void>;
@@ -47,7 +48,7 @@ export const TheFileInput: React.FC<TheFileInputProps> = ({
   }
   return (
     <div 
-     className="flex flex-col items-center justify-center w-full ">
+     className="flex flex-col items-center justify-center w-full dark:text-white p-5">
       <label className="font-bold  text-md capitalize  w-[90%] flex items-start">
         {item.required && item.editing ? <div className='text-red-300 mr-1'>*</div> : null}
         {item.field_name}
@@ -60,7 +61,7 @@ export const TheFileInput: React.FC<TheFileInputProps> = ({
         className='rounded-lg  flex-center hover:scale-105'>
         {
           /* @ts-expect-error */
-          !input[item.field_name] ? <TheIcon Icon={AiOutlineCamera} color="black" size='50' /> :
+          !input[item.field_name] ? <TheIcon Icon={AiOutlineCamera} color="" size='50' /> :
             // <img src={pic.file_url as string} className="h-full w-full rounded-full" />
             <div className='w-full h-full'>
               {img_url_or_file.type?
@@ -77,7 +78,7 @@ export const TheFileInput: React.FC<TheFileInputProps> = ({
    
         ref={fileInput}
         style={{ display: 'none' }}
-        className="w-[90%] p-2 m-1 text-white   border border-black 
+        className="w-[90%] p-2 m-1 dark:text-white    border border-black 
       dark:border-white h-10 text-base rounded-sm   dark:bg-slate-700"
         id={item.field_name}
         type={item.field_type}

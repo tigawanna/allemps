@@ -6,7 +6,7 @@ interface LoaderProps {
 
 export const LoaderElipse: React.FC<LoaderProps> = ({ }) => {
     return (
-        <div className='w-full h-full border flex justify-center items-center '>
+        <div className='w-full h-full flex justify-center items-center '>
             <div className="lds-ellipsis">
                 <div></div>
                 <div></div>
