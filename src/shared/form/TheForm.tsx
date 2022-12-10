@@ -145,6 +145,9 @@ class TheForm extends React.Component<Props, State> {
           {
             this.props.fields && this.props.fields.map((item, index) => {
           //  console.log("item input  == ",item)
+          if(item.hidden){
+            return null
+          }
             if(item.field_type === "select"){
               return (
                 <TheSelect

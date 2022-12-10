@@ -11,6 +11,7 @@ import { PBChannels } from '../../api/pb-api-types';
 import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
+import { Link } from 'react-router-dom';
 
 interface ChannelsProps {
 
@@ -51,11 +52,13 @@ isLoading={query.isLoading}
 <div className='w-full flex flex-col items-center justify-center '>
 { show&&channels?.map((channel,index)=>{
     return(
-        <div key={channel.id} className='w-[80%] p-1 hover:bg-slate-300 dark:hover:bg-slate-800
-        flex items-center justify-center text-sm border-b dark:border-b-[1px] 
+        <Link to={'/main/'+channel.id} >
+        <div key={channel.id} className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800
+        flex items-center justify-center text-[13px] border-b dark:border-b-[1px] 
          border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 rounded'>
           #{channel.name}
         </div>
+        </Link>
     )
 })
 }

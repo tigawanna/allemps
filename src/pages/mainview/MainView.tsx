@@ -1,5 +1,6 @@
 import React from 'react'
 import { Channels } from '../../components/mainview/Channels';
+import { Posts } from '../../components/mainview/Posts';
 import { User } from '../../utils/types';
 
 interface MianViewProps {
@@ -13,8 +14,8 @@ return (
         bg-slate-200 dark:bg-slate-700 '>
         <Channels/>
         </div>
-        <div className='w-full h-full flex items-center justify-between'>
-
+        <div className='w-full h-full flex flex-col items-center '>
+         <Posts/>
         </div>
  </div>
 );

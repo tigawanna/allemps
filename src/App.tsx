@@ -8,12 +8,12 @@ import { AuthLayout } from './pages/auth/AuthLayout';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { WelcomePage } from './pages/index/WelcomePage';
-import { LoaderElipse } from './shared/loaders/Loaders';
 import { QueryStateWrapper } from './shared/extra/QueryStateWrapper';
 import { User } from './utils/types';
 import { MainViewLayout } from './pages/mainview/MainViewLayout';
 import { MainView } from './pages/mainview/MainView';
 import { getUser } from './pb/config';
+import { LoaderElipse } from './shared/loaders/Loaders';
 
 
 
@@ -60,6 +60,11 @@ function App() {
           children: [
             {
               index: true,
+              element: <MainView user={user} />,
+              // loader: deferredBlogPostsLoader,
+            },
+            {
+              path:':id',
               element: <MainView user={user} />,
               // loader: deferredBlogPostsLoader,
             },
