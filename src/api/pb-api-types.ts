@@ -25,6 +25,31 @@ export interface PBPosts {
   items: PostsItem[];
 }
 
+export interface PBMembers {
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+  items: Member[];
+}
+
+export interface Member{
+  channel: string;
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  emp: string;
+  expand: MemberExpand;
+  id: string;
+  updated: string;
+}
+
+export interface MemberExpand {
+  channel: Channel;
+  emp: Emp;
+}
+
+
 export interface PostsItem {
   body: string;
   channel: string;

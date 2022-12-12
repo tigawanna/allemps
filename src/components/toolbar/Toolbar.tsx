@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  BsSunFill,
-  BsFillMoonFill,
-} from "react-icons/bs";
-
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
