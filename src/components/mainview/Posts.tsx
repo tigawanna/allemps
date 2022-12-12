@@ -70,7 +70,7 @@ error={query.error}
 isError={query.isError}
 isLoading={query.isLoading}
 >
-<div className='md:w-[60%] w-full h-[95%] p-1 gap-2 flex flex-col 
+<div className='w-full h-[95%] p-1 gap-2 flex flex-col 
 scroll-bar overflow-y-scroll'>
 { posts_list?.map((post,index)=>{
     return( <PostsCard posts={post}  key={post.id} />)

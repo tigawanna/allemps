@@ -4,7 +4,6 @@ import { AiOutlineHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { TheIcon } from "../../shared/extra/TheIcon";
 import { User } from "../../utils/types";
-import { useTheme } from './../../shared/hooks/themeHook';
 import { ReactModalWrapper } from './../../shared/extra/ReactModalWrapper';
 import { ProfileMenu } from './../../pages/emp/ProfileMenu';
 import { makeUrl } from "../../pb/config";
