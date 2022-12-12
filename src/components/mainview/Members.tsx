@@ -85,14 +85,7 @@ isLoading={query.isLoading}
 { members?.map((member,index)=>{
     const avatar = makeUrl('emps', member?.expand?.emp.id as string, member?.expand?.emp.avatar)
     return(
-        // <Link to={'/main/' + channel.id} key={channel.id}>
-        // <div  className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800
-        // flex items-center justify-center text-[13px] border-b dark:border-b-[1px] 
-        //  border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 rounded'>
-        //   {channel.expand.emp.name}
-        // </div>
-        // </Link>
-        <div className="  rounded-md  flex flex-col justify-center items-center 
+     <div className="  rounded-md  flex flex-col justify-center items-center 
               w-16  h-full  aspect-square">
             {avatar === "" ? (
                 <TheIcon

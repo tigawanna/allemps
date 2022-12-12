@@ -15,11 +15,13 @@ import { Link } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { User } from '../../utils/types';
 
+import { Channel } from './Channel';
+
 interface ChannelsProps {
    user?:User
 }
 
-export const Channels: React.FC<ChannelsProps> = ({}) => {
+export const Channels: React.FC<ChannelsProps> = ({user}) => {
 
 const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
@@ -71,15 +73,7 @@ isLoading={query.isLoading}
 >
 <div className='w-full flex flex-col items-center justify-center '>
 { show&&channels?.map((channel,index)=>{
-    return(
-        <Link to={'/main/' + channel.id} key={channel.id}>
-        <div  className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800
-        flex items-center justify-center text-[13px] border-b dark:border-b-[1px] 
-         border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 rounded'>
-          #{channel.name}
-        </div>
-        </Link>
-    )
+    return(<Channel channel={channel} user={user}/>)
 })
 }
 <button className='mt-5'>...</button>
@@ -93,6 +87,13 @@ isLoading={query.isLoading}
 </div>
 );
 }
+
+
+
+
+
+
+
 
 
 
