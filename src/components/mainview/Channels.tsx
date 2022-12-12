@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { createRecords, getRecords} from './../../api/pb';
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus,FaSearch } from 'react-icons/fa';
 
 import { concatErrors } from '../../utils/utils';
 import { PBChannels } from '../../api/pb-api-types';
@@ -20,12 +20,18 @@ interface ChannelsProps {
 }
 
 export const Channels: React.FC<ChannelsProps> = ({}) => {
-    const cahhnels_url = "https://emps.tigawanna.tech/api/collections/channels/records?sort=-created"
+
 const [show,setShow] = React.useState(true)
+const [keyword, setKeyword] = React.useState("")
 const [isOpen, setIsOpen] = React.useState(false);
-const query = useQuery(['channels'],()=>getRecords(cahhnels_url))
+const cahhnels_url = `https://emps.tigawanna.tech/api/collections/channels/records?sort=-created&filter=name~"${keyword}"`
+const query = useQuery(['channels',keyword],()=>getRecords(cahhnels_url))
 const data = query?.data as PBChannels
 const channels = data?.items
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+  setKeyword(e.target.value)
+}
 // console.log("data === ",data)
 return (
 <div className='w-full flex flex-col items-center justify-center p-2'>
@@ -36,9 +42,19 @@ border shadow-md shadow-slate-600  border-slate-500 dark:border-slate-200'>
   <div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
     Channels
  </div>
+
  <TheIcon Icon={FaPlus} iconAction={() => setIsOpen(prev => !prev)} />
  <TheIcon Icon={RiArrowDropDownLine} iconAction={() => setShow(prev => !prev)} size='30'/>
  </div>
+<div className='w-[95%] flex items-center justify-center gap-[2px]'>
+<TheIcon Icon={FaSearch}  size='20' />
+<input
+    onChange={handleChange}
+    value={keyword}
+    disabled={!show}
+    className='w-full rounded-lg border-[1px]'
+ />
+</div>
   <ReactModalWrapper
     isOpen={isOpen}
     closeModal={() => setIsOpen(false)}
