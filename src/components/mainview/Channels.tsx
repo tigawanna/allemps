@@ -5,16 +5,13 @@ import { createRecords, getRecords} from './../../api/pb';
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus,FaSearch } from 'react-icons/fa';
-
 import { concatErrors } from '../../utils/utils';
 import { PBChannels } from '../../api/pb-api-types';
 import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
-import { Link } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { User } from '../../utils/types';
-
 import { Channel } from './Channel';
 
 interface ChannelsProps {
@@ -73,7 +70,7 @@ isLoading={query.isLoading}
 >
 <div className='w-full flex flex-col items-center justify-center '>
 { show&&channels?.map((channel,index)=>{
-    return(<Channel channel={channel} user={user}/>)
+    return(<Channel channel={channel} user={user} key={channel.id}/>)
 })
 }
 <button className='mt-5'>...</button>

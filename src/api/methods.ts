@@ -91,23 +91,3 @@ export const loginUser = async (
 
 
 
-export const joinChannel=async(user_id:string,channel_id:string)=>{
-  // or fetch only the first record that matches the specified filter
-  const record = await client.collection("members").getFirstListItem(`emp="t${user_id}"&channel="${channel_id}"`, {expand: "",});
-}
-
-
-export const getChannels = async (
-  user_id: string,
-  channel_id: string
-) => {
-  // or fetch only the first record that matches the specified filter
-  try{
-  const record = await client.collection("members").getFirstListItem(`emp="t${user_id}"&channel="${channel_id}"`);
-  console.log("meber ?? ",record)
-  }catch(e){
-    console.log("error ==== ",e)
-   
-  }
-
-};

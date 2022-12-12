@@ -85,7 +85,9 @@ isLoading={query.isLoading}
 { members?.map((member,index)=>{
     const avatar = makeUrl('emps', member?.expand?.emp.id as string, member?.expand?.emp.avatar)
     return(
-     <div className="  rounded-md  flex flex-col justify-center items-center 
+     <div 
+     key={member.id}
+     className="  rounded-md  flex flex-col justify-center items-center 
               w-16  h-full  aspect-square">
             {avatar === "" ? (
                 <TheIcon
