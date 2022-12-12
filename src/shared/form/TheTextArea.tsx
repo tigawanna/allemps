@@ -36,7 +36,7 @@ return (
     {item.editing ?
     <textarea
       style={{ borderColor: isError() ? "red" : "" }}
-      className="w-[90%] p-2 m-1 border border-black h-28
+      className="w-[90%] p-1 border border-black h-28
       dark:border-white text-base rounded-md   dark:bg-slate-700 
   focus:border-2 dark:focus:border-4 focus:border-purple-700 dark:focus:border-purple-600 
       "

@@ -61,7 +61,7 @@ return (
       {form_options.fetch_select_options?.form_field}
     </label>
     <input
-      className='w-[90%] p-2 m-1 dark:text-white   border border-black 
+      className='w-[90%] p-1 dark:text-white   border border-black 
       dark:border-white h-10 text-base rounded-sm   dark:bg-slate-700'
     id="word"
     autoComplete='off'

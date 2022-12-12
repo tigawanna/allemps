@@ -66,7 +66,7 @@ return (
     </label>
     {form_options.editing?
       <input
-      className='w-[90%] p-2 m-1 text-white   border border-black 
+      className='w-[90%] p-1 text-white   border border-black 
       dark:border-white h-10 text-base rounded-sm   dark:bg-slate-700'
       id="word"
       autoComplete='off'

@@ -40,7 +40,7 @@ return (
       {form_options.fetch_select_options?.form_field}
     </label>
     <input
-      className='w-[90%] p-2 m-1 border border-black 
+      className='w-[90%] p-1 border border-black 
       dark:border-white h-10 text-base rounded-sm   dark:bg-slate-700
         focus:border-2 dark:focus:border-4 focus:border-purple-700 dark:focus:border-purple-600 '
     id="word"

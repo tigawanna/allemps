@@ -22,16 +22,7 @@ interface ToolbarProps {
 export const Toolbar: React.FC<ToolbarProps> = ({
   user,
 }) => {
-  const theme = useTheme();
-  const nextTheme =
-    theme.theme === "dark" ? "light" : "dark";
-  const mode =
-    theme.theme === "dark"
-      ? BsSunFill
-      : BsFillMoonFill;
-  const toggle = () => {
-    theme.setTheme(nextTheme);
-  };
+
   const [isOpen, setIsOpen] = React.useState(false);
   const avatar = makeUrl('emps', user?.id as string, user?.avatar)
   
@@ -54,15 +45,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         </div>
       </div>
 
-      <div className="w-fit p-1 mx-5 flex justify-center items-center   ">
-        <TheIcon
-          Icon={mode}
-          size={"25"}
-          color={""}
-          iconstyle={""}
-          iconAction={toggle}
-        />
-      </div>
+
       <div className="min-w-[10%] md:px-2 h-full flex justify-center items-center gap-1 md:gap-2
          md:border-2 rounded-xl  font-bold dark:font-normal ">
 
@@ -85,7 +68,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           isOpen={isOpen}
           closeModal={() => setIsOpen(false)}
           child={<ProfileMenu avatar={avatar as string} setOpen={setIsOpen} user={user} />}
-          styles={{ content_top: "5%" }}
+          styles={{ content_top: "0%",content_right:"0%",content_left:"70%" }}
         />
       <div className="  rounded-md  flex justify-center items-center
               w-16  h-full  aspect-square">

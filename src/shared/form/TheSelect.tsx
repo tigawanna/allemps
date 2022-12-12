@@ -35,7 +35,7 @@ return (
       {item.field_name}
     </label>
       <select id={item.field_name} onChange={handleChange} 
-       className="w-[90%]  p-2 m-1  border border-black 
+       className="w-[90%]  p-1  border border-black 
         dark:border-white h-10 text-base rounded-sm   dark:bg-slate-700 
              focus:outline dark:focus:outline-4 focus:border-purple-700 dark:focus:border-purple-600 
         ">
