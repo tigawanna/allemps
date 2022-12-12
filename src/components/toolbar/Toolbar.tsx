@@ -70,7 +70,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           child={<ProfileMenu avatar={avatar as string} setOpen={setIsOpen} user={user} />}
           styles={{ content_top: "0%",content_right:"0%",content_left:"70%" }}
         />
-      <div className="  rounded-md  flex justify-center items-center
+      <div className="  rounded-md  flex justify-center items-center 
               w-16  h-full  aspect-square">
           {avatar==="" ? (
               <TheIcon
@@ -84,7 +84,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <img
                 src={avatar}
               alt={""}
-              className="rounded-[50%] hover:rounded-sm border-2 max-h-[40px] h-10 aspect-square"
+                className="rounded-[50%] hover:rounded-sm max-h-[40px] h-10 w-10
+              border-2 border-slate-900 dark:border-slate-100 aspect-square"
               onClick={() => setIsOpen(true)}
             />
           )}

@@ -27,14 +27,12 @@ interface ModalStyles {
 export const ReactModalWrapper: React.FC<ReactModalWrapperProps> = ({isOpen, closeModal, styles, child, deps }) => {
 
 const{isMobile,width}= useCheckInMobile() 
-console.log("is mobile  ==== ", isMobile)
+
  
 const adjustSize=(mobile:boolean,size:string,mobile_size:string)=>{
 return mobile?mobile_size:size
 }
-    const adjustMobile = (mobile: boolean, size: string, mobile_size: string) => {
-        return mobile ? mobile_size : size
-    }
+
 
 const customStyles: ModalStyles = {
         overlay: {
@@ -49,7 +47,7 @@ const customStyles: ModalStyles = {
         },
         content: {
             position: 'absolute',
-            top: adjustSize(isMobile, styles?.content_top??'1%','0%'),
+            top: adjustSize(isMobile, styles?.content_top??'0%','0%'),
             left: adjustSize(isMobile, styles?.content_left ?? '15%', '0%'),
             right: adjustSize(isMobile, styles?.content_right ?? '15%', '0%'),
             bottom: adjustSize(isMobile, styles?.content_bottom ?? '2%', '0%'),
@@ -69,6 +67,7 @@ const customStyles: ModalStyles = {
             // onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             shouldCloseOnOverlayClick={true}
+            
             style={customStyles}
             contentLabel="Modal"
         >

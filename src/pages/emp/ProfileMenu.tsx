@@ -40,7 +40,8 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ user, avatar, setOpen 
                 <img
                     src={avatar}
                     alt={""}
-                    className="rounded-full hover:rounded-md min-h-[100px] max-h-[300px] aspect-square 
+                    className="rounded-full hover:rounded-md 
+                    min-h-[100px] max-h-[300px] aspect-square 
                     border-2 border-slate-900 dark:border-slate-100
                 "
                 />
