@@ -15,9 +15,7 @@ interface EmailPasswordLoginProps {
 
 export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
     const editing=true
-
-    const [authing,setAuthing]=React.useState(true)
-    const [error, setError] = React.useState({ name: "main", message: "" })
+    const [error, setError] = React.useState({ name: "", message: "" })
     const queryClient = useQueryClient();
 
     const form_input: FormOptions[] = [
@@ -40,23 +38,7 @@ export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
             // setError({ name: "main", message: err?.messge })
             throw err
        }
-
-
-        // return client.collection('emps').authWithPassword(
-        //     vars.payload.get('email') as string,
-        //      vars.payload.get('password') as string)
-        //          .then((res) => {
-        //         queryClient.setQueryData(['user'], () => res.record);
-        //         setAuthing(false)
-        //         navigate('/')
-        //     })
-        //      .catch((err)=>{
-        //     setAuthing(false)
-        //     console.log("error in auth mutation ",err.message)
-        //     setError({ name: "main", message: err.messge})
-        
-        // })
-    },
+     },
     {
         onSettled: () => {
             queryClient.invalidateQueries(["user"]);
@@ -126,44 +108,3 @@ const validate = ({ input, setError }: Validate) => {
 }
 
 
-
-
-
-// const form_input: FormOptions[] = [
-
-//     { field_name: "email", field_type: "text", default_value: "" },
-//     { field_name: "password", field_type: "password", default_value: "" },
-
-//     { field_name: "bio", field_type: "textarea", default_value: "" },
-//     { field_name: "pic", field_type: "file", default_value: "" },
-//     { field_name: "color", field_type: "color", default_value: "#ffffff" },
-//     {
-//         field_name: "gender", field_type: "select", default_value: "",
-//         options: [
-//             { name: "male", value: "male" },
-//             { name: "femal", value: "female" },
-//             { name: "NB", value: "nb" },
-//         ]
-//     },
-
-// ]
-
-// const queryFn = ({ key, keyword }: QueryFnProps) => {
-//     const getCountries = async () => {
-//         return fetch('https://restcountries.com/v3.1/all').then((response) => response.json())
-//     }
-//     return useQuery(key,
-//         getCountries,
-//         {
-//             select: (data: Country[]) => {
-//                 if (keyword !== "" && keyword.length > 1) {
-//                     return data.filter((item) => item.name.common.toLowerCase().includes(keyword.toLowerCase()))
-//                 }
-//                 console.log("data", data)
-//                 return data
-//             },
-//             enabled: keyword.length > 1
-
-//         })
-
-// }

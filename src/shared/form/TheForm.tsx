@@ -132,7 +132,7 @@ class TheForm extends React.Component<Props, State> {
   //   console.log("this.state.error === ", this.state.error)
     return (
       <div className="w-full h-full flex flex-col items-center justify-center
-      overflow-y-scroll bg-slate-300 dark:bg-slate-900 
+      overflow-y-scroll bg-slate-300 dark:bg-slate-900 rounded-lg
           m-1 p-1">
         <form
           className=" min-h-[70%]  m-1 p-1 w-[90%] text-base 

@@ -19,6 +19,7 @@ import { Profile } from './pages/emp/Profile';
 
 
 
+
 function App() {
 
    const userQuery = useQuery(['user'],getUser)
@@ -65,6 +66,11 @@ function App() {
               element: <MainView user={user} />,
               // loader: deferredBlogPostsLoader,
             },
+            // {
+            //  path:'/main/mobile',
+            //   element: <MainMobileView user={user} />,
+            //   // loader: deferredBlogPostsLoader,
+            // },
             {
               path:':channel_id',
               element: <MainView user={user} />,

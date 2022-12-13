@@ -54,7 +54,7 @@ const customStyles: ModalStyles = {
             overflow: 'hidden',
             WebkitOverflowScrolling: 'touch',
             border:styles?.content_border??'',
-            borderRadius:styles?.content_border_radius??'10px',
+            borderRadius:styles?.content_border_radius??'10%',
             outline: 'none',
             backgroundColor:styles?.content_bg_color??"",
      
@@ -76,7 +76,7 @@ const customStyles: ModalStyles = {
             className='absolute top-10 right-10 hover:text-bold hover:text-red-600'>X</button>
             <div className="h-full w-full overflow-auto scroll-bar">
             {/* @ts-expect-error */}
-            {React.isValidElement(child) ? React.cloneElement(child, { deps, isOpen, closeModal }) : child}
+            {React.isValidElement(child) ? React.cloneElement(child, { deps, isOpen }) : child}
             </div>
 
         </Modal>
