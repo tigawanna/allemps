@@ -100,3 +100,14 @@ export const getChannelUrl =(channel_id?:string)=>{
     return `https://emps.tigawanna.tech/api/collections/channels/records?filter=id="0ds0fovs0nsas0k"`;
 
 }
+
+export const getMembersUrl = (
+  keyword: string,
+  channel_id?: string
+) => {
+  if (channel_id) {
+    return `https://emps.tigawanna.tech/api/collections/members/records?expand=emp,channel
+&sort=-created&filter=channel="${channel_id}"&emp.name="${keyword}"`;
+  }
+  return `https://emps.tigawanna.tech/api/collections/emps/records?sort=-created&filter=name~"${keyword}"`;
+};

@@ -1,7 +1,7 @@
 import React from 'react'
 import { QueryStateWrapper } from '../../shared/extra/QueryStateWrapper';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createRecords, getRecords} from './../../api/pb';
+import { createRecords, getMembersUrl, getRecords} from './../../api/pb';
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaSearch } from 'react-icons/fa';
@@ -21,7 +21,7 @@ import { Member } from './../../api/pb-api-types';
 interface MembersProps {
    user?:User
    params: Readonly<Partial<MainViewParamsT>>
-    current_channel?: ChannelItem
+  current_channel?: ChannelItem
 }
 
 
@@ -31,10 +31,10 @@ const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
 const [isOpen, setIsOpen] = React.useState(false);
 
-const members_url = `https://emps.tigawanna.tech/api/collections/members/records?expand=emp,channel
-&sort=-created&filter=channel="${params.channel_id}"&emp.name="${keyword}"`
+// const members_url = `https://emps.tigawanna.tech/api/collections/members/records?expand=emp,channel
+// &sort=-created&filter=channel="${channel_id}"&emp.name="${keyword}"`
+const members_url = getMembersUrl(keyword, params.channel_id)
 const query = useQuery(['members',members_url],()=>getRecords(members_url))
-const channels_url = `https://emps.tigawanna.tech/api/collections/channels/records?sort=-created&filter=id="${params.channel_id}"`
 
 const data = query?.data as PBMembers
 const members = data?.items
@@ -45,16 +45,22 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
 
 
 
-// console.log("data === ",data)
+console.log("data === ",members)
 return (
 <div className='w-full  flex flex-col items-center justify-center p-2'>
-{params.channel_id ?<div className='w-full flex flex-col items-center justify-center rounded p-2 
+<div className='w-full flex flex-col items-center justify-center rounded p-2 
 border shadow-md shadow-slate-600  border-slate-500 dark:border-slate-200'>
  {/*  channnel tab heading and toggle buttons */}
 <div className='w-[95%] flex items-center p-2'>
-  <div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
-   {current_channel?.name} members
- </div>
+    <div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
+{params.channel_id?<div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
+            {current_channel?.name} members
+        </div>:
+<div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
+  all users
+ </div>}
+    </div>
+
 
  {/* <TheIcon Icon={FaPlus} iconAction={() => setIsOpen(prev => !prev)} /> */}
  <TheIcon Icon={RiArrowDropDownLine} iconAction={() => setShow(prev => !prev)} size='30'/>
@@ -87,8 +93,9 @@ isLoading={query.isLoading}
 {members?.length === 0?" no members in this channel ":null} 
 
 { members?.map((member,index)=>{
-    const avatar = makeUrl('emps', member?.expand?.emp.id as string, member?.expand?.emp.avatar)
-
+    // console.log("members ==== ",member)
+    {/* @ts-expect-error */ }
+    const avatar = makeUrl('emps', member?.expand?.emp.id as string??member.id, member?.expand?.emp.avatar??member.avatar as string)
     return(
      <div 
      key={member.id}
@@ -111,20 +118,20 @@ isLoading={query.isLoading}
                     onClick={() => setIsOpen(true)}
                 />
             )}
-            <div className='text-xs'
-            >{member?.expand?.emp.name}</div>
+            <div className='text-xs'>
+                {/* @ts-expect-error */}
+        {member?.expand?.emp.name??member?.name}</div>
     </div>
     )
 })
 }
-
 </div>
 <button className='mt-5'>...</button>
 </QueryStateWrapper>
 </div>:null
 }
 
-</div>:null}
+</div>
 
 </div>
 );

@@ -25,8 +25,8 @@ const params = useParams<MainViewParamsT>()
 const channel_id = params.channel_id ?? "0ds0fovs0nsas0k"
 const query = useQuery<PBChannels, unknown, PBChannels, string[]>(['channels', channel_id], () => getRecords(getChannelUrl(channel_id)))
 
-const [showChannels, setShowChannels] = React.useState(true)
-const [showMembers, setShowMembers] = React.useState(true)
+const [showChannels, setShowChannels] = React.useState(false)
+const [showMembers, setShowMembers] = React.useState(false)
 
 const curr_channel = query.data?.items[0]
 

@@ -21,13 +21,15 @@ interface ChannelsProps {
    current_channel?:ChannelItem
 }
 
-export const Channels: React.FC<ChannelsProps> = ({user,params,current_channel}) => {
+export const Channels: React.FC<ChannelsProps> = ({user,params}) => {
 
 const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
 const [isOpen, setIsOpen] = React.useState(false);
+
 const cahhnels_url = `https://emps.tigawanna.tech/api/collections/channels/records?sort=-created&filter=name~"${keyword}"`
 const query = useQuery(['channels',keyword],()=>getRecords(cahhnels_url))
+
 const data = query?.data as PBChannels
 const channels = data?.items
 
