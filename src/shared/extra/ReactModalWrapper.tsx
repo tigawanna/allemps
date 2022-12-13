@@ -54,7 +54,7 @@ const customStyles: ModalStyles = {
             overflow: 'hidden',
             WebkitOverflowScrolling: 'touch',
             border:styles?.content_border??'',
-            borderRadius:styles?.content_border_radius??'10px',
+            borderRadius:styles?.content_border_radius??'10%',
             outline: 'none',
             backgroundColor:styles?.content_bg_color??"",
      

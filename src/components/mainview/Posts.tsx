@@ -40,8 +40,11 @@ return (
   
   <div 
   style={{backgroundColor:current_channel?.color}}
-  className='w-full p-2 hidden md:flex md:items-center md:justify-center font-bold text-xl '>
-   {current_channel?.name}
+  className='w-full p-2 hidden md:flex md:items-center md:justify-center  '>
+      <div className=" px-2 flex items-center justify-center
+          text-xl bg-slate-900 text-slate-50 rounded-xl">
+          {current_channel?.name}
+      </div>
  </div>
  
  <div className='fixed bottom-[10%] right-[4%]'>

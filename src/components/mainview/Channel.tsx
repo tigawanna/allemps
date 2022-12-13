@@ -26,7 +26,7 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel,clo
 
     return (
     
-        <div className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800
+        <div className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800 
         flex items-center justify-between text-[13px] border-b dark:border-b-[1px] 
          border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 rounded'>
             <ReactModalWrapper
@@ -43,7 +43,9 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel,clo
         style={{ backgroundColor: curr_channel === channel.id ? "#452870" : "", 
         color: curr_channel === channel.id ? "#ffffff" : "" }}
         className='w-full px-2 hover:bg-slate-300 dark:hover:bg-slate-800
-        flex items-center justify-center text-[13px] border-b dark:border-b-[1px] rounded-2xl
+        flex items-center justify-center 
+        text-lg md:text-sm 
+        border-b dark:border-b-[1px] rounded-2xl
          border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 '>
         #{channel.name}
         

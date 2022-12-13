@@ -105,7 +105,7 @@ export const AddPost: React.FC<AddPostProps> = ({closeModal,ch_id,user}) => {
     };
     return (
         <div className='w-full  border p-2 flex
-    dark:text-white '>
+    dark:text-white rounded-lg'>
             <TheForm
                 form_title='New Post'
                 fields={form_input}

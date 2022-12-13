@@ -60,7 +60,7 @@ border shadow-md shadow-slate-600  border-slate-500 dark:border-slate-200'>
     styles={{ content_top: "5%" }}
     />
 
-{show?<div>
+{show ? <div className='w-[95%]'>
 
 <div className='w-[95%] flex items-center justify-center gap-[2px]'>
 <TheIcon Icon={FaSearch} size='20' />
@@ -77,7 +77,7 @@ isError={query.isError}
 isLoading={query.isLoading}
 >
 
-<div className='w-full flex flex-col items-center justify-center '>
+<div className='w-full flex flex-col items-center justify-center b'>
 {channels?.length === 0 ? " no channels " : null}
 { show&&channels?.map((channel,index)=>{
     return (<Channel channel={channel} user={user} 
