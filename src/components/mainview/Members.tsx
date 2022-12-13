@@ -16,6 +16,7 @@ import { User } from '../../utils/types';
 import { makeUrl } from './../../pb/config';
 import { FaUserCircle } from "react-icons/fa";
 import { MainViewParamsT } from '../../pages/mainview/MainView';
+import { Member } from './../../api/pb-api-types';
 
 interface MembersProps {
    user?:User
@@ -83,8 +84,11 @@ isError={query.isError}
 isLoading={query.isLoading}
 >
 <div className='w-full flex flex-wrap items-center justify-center p-2'>
+{members?.length === 0?" no members in this channel ":null} 
+
 { members?.map((member,index)=>{
     const avatar = makeUrl('emps', member?.expand?.emp.id as string, member?.expand?.emp.avatar)
+
     return(
      <div 
      key={member.id}
@@ -109,7 +113,7 @@ isLoading={query.isLoading}
             )}
             <div className='text-xs'
             >{member?.expand?.emp.name}</div>
-        </div>
+    </div>
     )
 })
 }

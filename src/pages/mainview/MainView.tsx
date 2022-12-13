@@ -12,6 +12,7 @@ import { getRecords } from '../../api/pb';
 import { getChannelUrl } from './../../api/pb';
 import { QueryStateWrapper } from './../../shared/extra/QueryStateWrapper';
 import { PBChannels } from './../../api/pb-api-types';
+import { ReactModalWrapper } from './../../shared/extra/ReactModalWrapper';
 
 interface MianViewProps {
     user?: User
@@ -24,13 +25,14 @@ const params = useParams<MainViewParamsT>()
 const channel_id = params.channel_id ?? "0ds0fovs0nsas0k"
 const query = useQuery<PBChannels, unknown, PBChannels, string[]>(['channels', channel_id], () => getRecords(getChannelUrl(channel_id)))
 
-const [showCHannels, setShowChannels] = React.useState(true)
+const [showChannels, setShowChannels] = React.useState(true)
 const [showMembers, setShowMembers] = React.useState(true)
 
 const curr_channel = query.data?.items[0]
 
 return (
  <div className='w-full h-full flex flex-col md:flex-row items-center justify-between'>
+
 <div
 style={{backgroundColor:curr_channel?.color}} 
 className='w-full flex md:hidden  items-center justify-between p-1'>
@@ -46,19 +48,43 @@ className='w-full flex items-center justify-center font-bold text-xl '>
 </QueryStateWrapper>
 <TheIcon Icon={FaUsers} iconAction={() => setShowMembers(prev => !prev)} size='30' />
 </div>
+
+        <ReactModalWrapper
+            isOpen={showChannels}
+            closeModal={() => setShowChannels(false)}
+            child={
+          <div className='w-full h-full flex flex-col justify-start items-center 
+            bg-slate-200 dark:bg-slate-700 overflow-scroll'>
+            <Channels user={user} params={params} current_channel={curr_channel} />
+        </div>
+            }
+            styles={{ content_top: "0%", content_left: "0%", content_bottom: "0%" }}
+        />
+        <ReactModalWrapper
+            isOpen={showMembers}
+            closeModal={() => setShowMembers(false)}
+            child={
+                <div className='w-full py-5 h-full flex flex-col justify-start items-center 
+                  bg-slate-200 dark:bg-slate-700 overflow-scroll'>
+                    <Members user={user} params={params} current_channel={curr_channel} />
+                </div>
+            }
+            styles={{ content_top: "0%",content_left:"0%",content_bottom:"0%" }}
+        />
+
 <div className='min-w-[20%] py-5 h-full hidden md:flex md:flex-col md:justify-start md:items-center 
-        bg-slate-200 dark:bg-slate-700 overflow-scroll'>
+bg-slate-200 dark:bg-slate-700 overflow-scroll'>
 <Channels user={user} params={params} current_channel={curr_channel}/>
 </div>
 
  <div className='w-full h-[95%] flex flex-col items-center '>
-            <Posts user={user} params={params} current_channel={curr_channel} />
+<Posts user={user} params={params} current_channel={curr_channel} />
 </div>
 
-        <div className='min-w-[20%] py-5 h-full hidden md:flex flex-col justify-start items-center 
-        bg-slate-200 dark:bg-slate-700 overflow-scroll'>
-            <Members user={user} params={params} current_channel={curr_channel} />
-        </div>
+ <div className='min-w-[20%] py-5 h-full hidden md:flex flex-col justify-start items-center 
+bg-slate-200 dark:bg-slate-700 overflow-scroll'>
+<Members user={user} params={params} current_channel={curr_channel} />
+</div>
 
 
 

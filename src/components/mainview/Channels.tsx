@@ -72,6 +72,7 @@ isError={query.isError}
 isLoading={query.isLoading}
 >
 <div className='w-full flex flex-col items-center justify-center '>
+{channels?.length === 0 ? " no channels " : null}
 { show&&channels?.map((channel,index)=>{
     return (<Channel channel={channel} user={user} 
         curr_channel={params.channel_id ??"0ds0fovs0nsas0k"} key={channel.id} />)
