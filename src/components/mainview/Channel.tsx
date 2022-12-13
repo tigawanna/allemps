@@ -16,10 +16,11 @@ interface ChannelProps {
     channel: ChannelItem
     user: User | undefined
     curr_channel: string | undefined
+    closeModal?: () => void
  
 }
 
-export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel }) => {
+export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel,closeModal }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
 
@@ -34,9 +35,13 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel }) 
                 child={<JoinChannel channel={channel} user={user}/>}
                 styles={{ content_top: "5%", }}
             />
-        <Link to={'/main/' + channel.id}>
+        <Link 
+        
+        to={'/main/' + channel.id}>
         <div 
-        style={{ backgroundColor: curr_channel === channel.id ?"#452870":""}}
+        onClick={() => closeModal && closeModal()}
+        style={{ backgroundColor: curr_channel === channel.id ? "#452870" : "", 
+        color: curr_channel === channel.id ? "#ffffff" : "" }}
         className='w-full px-2 hover:bg-slate-300 dark:hover:bg-slate-800
         flex items-center justify-center text-[13px] border-b dark:border-b-[1px] rounded-2xl
          border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 '>
