@@ -14,15 +14,14 @@ import { MainViewLayout } from './pages/mainview/MainViewLayout';
 import { MainView } from './pages/mainview/MainView';
 import { getUser } from './pb/config';
 import { LoaderElipse } from './shared/loaders/Loaders';
-import { EmpsLayout } from './pages/emp/EmpsLayout';
-import { Profile } from './pages/emp/Profile';
+import { isUserLoggedIn } from './api/methods';
 
 
 
 
 function App() {
 
-   const userQuery = useQuery(['user'],getUser)
+   const userQuery = useQuery(['user'],isUserLoggedIn)
   
   //  supabase.auth.onAuthStateChange((event, session) => {
   //   console.log("auth state changed == ",event, session)
@@ -79,22 +78,7 @@ function App() {
 
           ],
         },
-        {
-          path: '/profile',
-          element: <EmpsLayout user={user} />,
-          children: [
-            {
-              index: true,
-              element: <Profile user={user} />,
-              // loader: deferredBlogPostsLoader,
-            },
-            // {
-            //   path: '/auth/signup',
-            //   element: <Signup />,
-            //   // loader: blogPostLoader,
-            // },
-          ],
-        },
+ 
 
 
         {

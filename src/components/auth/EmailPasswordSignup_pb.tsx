@@ -2,9 +2,11 @@ import React from 'react'
 import TheForm from '../../shared/form/TheForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormOptions } from '../../shared/form/types';
-import { registerUser, loginUser } from '../../api/methods';
-import { FilterParams } from '../../shared/form/types';
+import { client } from './../../pb/config';
 import { concatErrors } from '../../utils/utils';
+
+
+
 
 
 
@@ -17,26 +19,19 @@ interface EmailPasswordSignupProps {
 export const EmailPasswordSignup: React.FC<EmailPasswordSignupProps> = ({}) => {
     const editing= true
     const [error, setError] = React.useState({name: "", message:""})
-   const queryClient = useQueryClient();
-   const form_input: FormOptions[] = [
+
+    const queryClient = useQueryClient();
+
+   
+    const form_input: FormOptions[] = [
         { field_name: "email", field_type: "text", default_value: "",required:true,editing },
         { field_name: "password", field_type: "password", default_value: "", required: true,editing },
-        { field_name: "username", field_type: "text", default_value: "", required: true, editing },
-        { field_name: "firstname", field_type: "text", default_value: "", required: true, editing },
-        { field_name: "lastname", field_type: "text", default_value: "", required: true, editing },
-
+        { field_name: "passwordConfirm", field_type: "password", default_value: "", required: true,editing },
   ]  
     const addUserMutation = useMutation(async(vars: { coll_name: string, payload: FormData }) => {
        try{
-        const result = await registerUser(
-            vars.payload.get('email') as string,
-            vars.payload.get('password') as string,
-            vars.payload.get('username') as string,
-            vars.payload.get('firstname') as string,
-            vars.payload.get('lastname') as string
-        )
-            // console.log("result ===== ",result)
-        return await loginUser(
+        await client.collection('emps').create(vars.payload);
+        return await client.collection('emps').authWithPassword(
             vars.payload.get('email') as string,
             vars.payload.get('password') as string
         )
@@ -85,9 +80,7 @@ return (
 export interface SignupFormInput{
 email:string
 password:string
-username:string
-firstname:string
-lastname:string
+passwordConfirm:string
 }
 interface Validate {
     input: SignupFormInput;
@@ -112,18 +105,15 @@ const validate = ({ input, setError }: Validate) => {
         setError({ name: "password", message: "password minimun length is 8" })
         return false
     }
-    if (input.username === "") {
-        setError({ name: "username", message: "user name required" })
+    if (input.passwordConfirm.length < 8) {
+        setError({ name: "passwordConfirm", message: "password minimun length is 8" })
         return false
     }
-    if (input.firstname === "") {
-        setError({ name: "firstname", message: "first name required" })
+    if (input.passwordConfirm !== input.password) {
+        setError({ name: "passwordConfirm", message: "ensure the passwords match" })
         return false
     }
-    if (input.lastname === "") {
-        setError({ name: "lastname", message: "lastname required" })
-        return false
-    }
+
     setError({ name: "", message: "" })
     return true
 }

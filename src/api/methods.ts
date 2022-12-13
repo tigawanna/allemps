@@ -1,20 +1,19 @@
 import { useLocalStoreValues } from "../zustand/store";
-import { client } from './../pb/config';
+
+export const flask_base_url = 'https://allempservice.onrender.com/'
 
 
-
-
-
-
+// authentication state
 export const isUserLoggedIn=async()=>{
 const { localValues} = useLocalStoreValues.getState();
+console.log("loval values === ",localValues)
   if(localValues?.user){
     return localValues.user
   }
   return null
 }
 
-
+// authentication login
 export const registerUser = async (
   email: string,
   password: string,
@@ -36,7 +35,7 @@ export const registerUser = async (
   });
 
   let response = await fetch(
-    "https://allempservice.onrender.com/api/register",
+    flask_base_url+"api/register",
     {
       method: "POST",
       body: bodyContent,
@@ -47,13 +46,13 @@ export const registerUser = async (
   let data = await response.json();
     if (data.status === 400) {
       throw new Error(data.message);
-      return;
+     
     }
   console.log("register respose data ", data);
 };
 
 
-
+// authentication signup
 export const loginUser = async (
   email: string,
   password: string
@@ -69,7 +68,7 @@ export const loginUser = async (
   });
 
   let response = await fetch(
-    "https://allempservice.onrender.com/api/login",
+    flask_base_url+"api/login",
     {
       method: "POST",
       body: bodyContent,
@@ -83,7 +82,8 @@ export const loginUser = async (
     
   }
   if(data.token){
-    // updateUser({email:data.email,token:data.token})
+    updateUser(data)
+    return data
   }
   console.log("login response data ====> ", data,localValues);
 

@@ -5,8 +5,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { TheIcon } from "../../shared/extra/TheIcon";
 import { User } from "../../utils/types";
 import { ReactModalWrapper } from './../../shared/extra/ReactModalWrapper';
-import { ProfileMenu } from './../../pages/emp/ProfileMenu';
 import { makeUrl } from "../../pb/config";
+import { ProfileMenu } from './../auth/ProfileMenu';
 
 
 interface ToolbarProps {
@@ -18,7 +18,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const avatar = makeUrl('emps', user?.id as string, user?.avatar)
+
   
 // console.log("profile ===",avatar)
   return (
@@ -61,12 +61,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         <ReactModalWrapper
           isOpen={isOpen}
           closeModal={() => setIsOpen(false)}
-          child={<ProfileMenu avatar={avatar as string} setOpen={setIsOpen} user={user} />}
+          child={<ProfileMenu  setOpen={setIsOpen} user={user} />}
           styles={{ content_top: "0%",content_right:"0%",content_left:"70%" }}
         />
       <div className="  rounded-md  flex justify-center items-center 
               w-16  h-full  aspect-square">
-          {avatar==="" ? (
+       
               <TheIcon
                Icon={FaUserCircle}
                 size={"25"}
@@ -74,15 +74,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 iconAction={() => setIsOpen(true)}
               />
          
-          ) : (
-            <img
-                src={avatar}
-              alt={""}
-                className="rounded-[50%] hover:rounded-sm max-h-[40px] h-10 w-10
-              border-2 border-slate-900 dark:border-slate-100 aspect-square"
-              onClick={() => setIsOpen(true)}
-            />
-          )}
+
         </div>
       </div>
 

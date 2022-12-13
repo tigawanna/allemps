@@ -2,9 +2,9 @@ import React from 'react'
 import TheForm from '../../shared/form/TheForm';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormOptions } from '../../shared/form/types';
-import { client } from '../../pb/config';
-import { loginUser } from '../../api/methods';
+import { client } from './../../pb/config';
 import { concatErrors } from '../../utils/utils';
+
 
 
 
@@ -15,6 +15,8 @@ interface EmailPasswordLoginProps {
 
 export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
     const editing=true
+
+    const [authing,setAuthing]=React.useState(true)
     const [error, setError] = React.useState({ name: "", message: "" })
     const queryClient = useQueryClient();
 
@@ -25,20 +27,22 @@ export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
 //    console.log("error in login ==== > ",error) 
     const addUserMutation = useMutation(async(vars: { coll_name: string, payload: FormData }) => {
        try{
-           await loginUser(
-               vars.payload.get('email') as string,
-               vars.payload.get('password') as string
-           )
-            // queryClient.setQueryData(['user'], () => result.record);
-            // setAuthing(false)
-
+            const result = await client.collection('emps').authWithPassword(
+                vars.payload.get('email') as string,
+                vars.payload.get('password') as string
+            )
+            queryClient.setQueryData(['user'], () => result.record);
+            setAuthing(false)
         }
         catch(err:any){
-            console.log("error in login mutation catch block", err.message)
+            // console.log("error in login mutation catch block", err.message)
             // setError({ name: "main", message: err?.messge })
             throw err
        }
-     },
+
+
+
+    },
     {
         onSettled: () => {
             queryClient.invalidateQueries(["user"]);
@@ -98,8 +102,8 @@ const validate = ({ input, setError }: Validate) => {
         setError({ name: "email", message: "invalid email pattern" })
         return false
     }
-    if (input.password.length < 1) {
-        setError({ name: "password", message: "password minimun length is 1" })
+    if (input.password.length < 8) {
+        setError({ name: "password", message: "password minimun length is 8" })
         return false
     }
 
@@ -108,3 +112,44 @@ const validate = ({ input, setError }: Validate) => {
 }
 
 
+
+
+
+// const form_input: FormOptions[] = [
+
+//     { field_name: "email", field_type: "text", default_value: "" },
+//     { field_name: "password", field_type: "password", default_value: "" },
+
+//     { field_name: "bio", field_type: "textarea", default_value: "" },
+//     { field_name: "pic", field_type: "file", default_value: "" },
+//     { field_name: "color", field_type: "color", default_value: "#ffffff" },
+//     {
+//         field_name: "gender", field_type: "select", default_value: "",
+//         options: [
+//             { name: "male", value: "male" },
+//             { name: "femal", value: "female" },
+//             { name: "NB", value: "nb" },
+//         ]
+//     },
+
+// ]
+
+// const queryFn = ({ key, keyword }: QueryFnProps) => {
+//     const getCountries = async () => {
+//         return fetch('https://restcountries.com/v3.1/all').then((response) => response.json())
+//     }
+//     return useQuery(key,
+//         getCountries,
+//         {
+//             select: (data: Country[]) => {
+//                 if (keyword !== "" && keyword.length > 1) {
+//                     return data.filter((item) => item.name.common.toLowerCase().includes(keyword.toLowerCase()))
+//                 }
+//                 console.log("data", data)
+//                 return data
+//             },
+//             enabled: keyword.length > 1
+
+//         })
+
+// }

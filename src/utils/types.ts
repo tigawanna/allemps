@@ -1,3 +1,10 @@
 
 import { Record,Admin } from 'pocketbase';
-export type User = Record | Admin | null;
+
+interface LoginUser {
+  message: string;
+  email: string;
+  token: string;
+  status: number;
+}
+export type User = LoginUser | null;
