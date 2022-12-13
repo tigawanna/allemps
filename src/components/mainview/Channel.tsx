@@ -15,9 +15,11 @@ import { Link } from 'react-router-dom';
 interface ChannelProps {
     channel: ChannelItem
     user: User | undefined
+    curr_channel: string | undefined
+ 
 }
 
-export const Channel: React.FC<ChannelProps> = ({ channel, user }) => {
+export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
 
@@ -32,10 +34,12 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user }) => {
                 child={<JoinChannel channel={channel} user={user}/>}
                 styles={{ content_top: "5%", }}
             />
-     <Link to={'/main/' + channel.id}>
-        <div className='w-full p-1 hover:bg-slate-300 dark:hover:bg-slate-800
-        flex items-center justify-center text-[13px] border-b dark:border-b-[1px] 
-         border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 rounded'>
+        <Link to={'/main/' + channel.id}>
+        <div 
+        style={{ backgroundColor: curr_channel === channel.id ?"#452870":""}}
+        className='w-full px-2 hover:bg-slate-300 dark:hover:bg-slate-800
+        flex items-center justify-center text-[13px] border-b dark:border-b-[1px] rounded-2xl
+         border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 '>
         #{channel.name}
         
         </div>

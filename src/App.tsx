@@ -16,6 +16,7 @@ import { getUser } from './pb/config';
 import { LoaderElipse } from './shared/loaders/Loaders';
 import { EmpsLayout } from './pages/emp/EmpsLayout';
 import { Profile } from './pages/emp/Profile';
+import { MainMobileView } from './pages/mainview/MainMobileView';
 
 
 
@@ -65,6 +66,11 @@ function App() {
               element: <MainView user={user} />,
               // loader: deferredBlogPostsLoader,
             },
+            // {
+            //  path:'/main/mobile',
+            //   element: <MainMobileView user={user} />,
+            //   // loader: deferredBlogPostsLoader,
+            // },
             {
               path:':channel_id',
               element: <MainView user={user} />,

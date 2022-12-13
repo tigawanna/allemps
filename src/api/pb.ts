@@ -91,3 +91,12 @@ export const getChannelsJoinStatus = async (
     return null;
   }
 };
+
+
+export const getChannelUrl =(channel_id?:string)=>{
+  if(channel_id){
+   return `https://emps.tigawanna.tech/api/collections/channels/records?filter=id="${channel_id}"`;
+  }
+    return `https://emps.tigawanna.tech/api/collections/channels/records?filter=id="0ds0fovs0nsas0k"`;
+
+}

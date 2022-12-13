@@ -6,7 +6,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaSearch } from 'react-icons/fa';
 import { concatErrors } from '../../utils/utils';
-import { PBMembers } from '../../api/pb-api-types';
+import { ChannelItem, PBMembers } from '../../api/pb-api-types';
 import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
@@ -15,16 +15,17 @@ import { useQueryClient } from '@tanstack/react-query';
 import { User } from '../../utils/types';
 import { makeUrl } from './../../pb/config';
 import { FaUserCircle } from "react-icons/fa";
+import { MainViewParamsT } from '../../pages/mainview/MainView';
 
 interface MembersProps {
    user?:User
-}
-type ParamsT = {
-    channel_id: string
+   params: Readonly<Partial<MainViewParamsT>>
+    current_channel?: ChannelItem
 }
 
-export const Members: React.FC<MembersProps> = ({}) => {
-const params = useParams<ParamsT>()
+
+export const Members: React.FC<MembersProps> = ({user,params,current_channel}) => {
+
 const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
 const [isOpen, setIsOpen] = React.useState(false);
@@ -33,7 +34,7 @@ const members_url = `https://emps.tigawanna.tech/api/collections/members/records
 &sort=-created&filter=channel="${params.channel_id}"&emp.name="${keyword}"`
 const query = useQuery(['members',members_url],()=>getRecords(members_url))
 const channels_url = `https://emps.tigawanna.tech/api/collections/channels/records?sort=-created&filter=id="${params.channel_id}"`
-const ch_query = useQuery(['channels', channels_url], () => getRecords(channels_url))
+
 const data = query?.data as PBMembers
 const members = data?.items
 
@@ -41,7 +42,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
   setKeyword(e.target.value)
 }
 
-const channel = ch_query.data?.items[0]
+
 
 // console.log("data === ",data)
 return (
@@ -51,7 +52,7 @@ border shadow-md shadow-slate-600  border-slate-500 dark:border-slate-200'>
  {/*  channnel tab heading and toggle buttons */}
 <div className='w-[95%] flex items-center p-2'>
   <div className='w-[95%] flex items-center justify-center font-bold text-xl p-2'>
-   {channel?.name} members
+   {current_channel?.name} members
  </div>
 
  {/* <TheIcon Icon={FaPlus} iconAction={() => setIsOpen(prev => !prev)} /> */}

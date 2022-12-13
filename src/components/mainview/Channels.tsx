@@ -6,19 +6,22 @@ import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus,FaSearch } from 'react-icons/fa';
 import { concatErrors } from '../../utils/utils';
-import { PBChannels } from '../../api/pb-api-types';
+import { ChannelItem, PBChannels } from '../../api/pb-api-types';
 import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { useQueryClient } from '@tanstack/react-query';
 import { User } from '../../utils/types';
 import { Channel } from './Channel';
+import { MainViewParamsT } from '../../pages/mainview/MainView';
 
 interface ChannelsProps {
    user?:User
+   params: Readonly<Partial<MainViewParamsT>>
+   current_channel?:ChannelItem
 }
 
-export const Channels: React.FC<ChannelsProps> = ({user}) => {
+export const Channels: React.FC<ChannelsProps> = ({user,params,current_channel}) => {
 
 const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
@@ -70,7 +73,8 @@ isLoading={query.isLoading}
 >
 <div className='w-full flex flex-col items-center justify-center '>
 { show&&channels?.map((channel,index)=>{
-    return(<Channel channel={channel} user={user} key={channel.id}/>)
+    return (<Channel channel={channel} user={user} 
+        curr_channel={params.channel_id ??"0ds0fovs0nsas0k"} key={channel.id} />)
 })
 }
 <button className='mt-5'>...</button>

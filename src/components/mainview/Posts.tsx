@@ -1,42 +1,32 @@
 import React from 'react'
 import { QueryStateWrapper } from '../../shared/extra/QueryStateWrapper';
 import {  useQuery } from '@tanstack/react-query';
-import {  getRecords} from '../../api/pb';
+import {  getChannelUrl, getRecords} from '../../api/pb';
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus } from 'react-icons/fa';
-import { PBPosts} from '../../api/pb-api-types';
+import { ChannelItem, PBPosts} from '../../api/pb-api-types';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { PostsCard } from './PostsCard';
 import { AddPost } from './PostsForm';
 import { useParams } from 'react-router-dom';
 import { PBChannels } from './../../api/pb-api-types';
 import { User } from '../../utils/types';
+import { MainViewParamsT } from '../../pages/mainview/MainView';
 
 interface PostsProps {
   user?:User
+  params: Readonly<Partial<MainViewParamsT>>
+  current_channel?: ChannelItem
 }
-type ParamsT = {
-    channel_id: string
-}
-
-export const Posts: React.FC<PostsProps> = ({user}) => {
 
 
-const params = useParams<ParamsT>()
+export const Posts: React.FC<PostsProps> = ({user,params,current_channel}) => {
+
 const channel_id = params.channel_id??"0ds0fovs0nsas0k"
-
 const posts_url = `https://emps.tigawanna.tech/api/collections/posts/records?expand=channel,emp&filter=channel="${channel_id}"&sort=-created`
-const channels_url = `https://emps.tigawanna.tech/api/collections/channels/records?filter=id="${channel_id}"`
-
 
 const [isOpen, setIsOpen] = React.useState(false);
-
 const query = useQuery(['posts',channel_id],()=>getRecords(posts_url))
-const channel_query = useQuery(['channels',channel_id], () => getRecords(channels_url))
-const channel = channel_query?.data as PBChannels
-const current_channel=channel?.items?.[0]
-
-
 
 const data = query?.data as PBPosts
 const posts_list = data?.items
@@ -47,11 +37,13 @@ return (
 
  {/*  posts */}
 <div className='w-full flex items-center p-2'>
+  
   <div 
   style={{backgroundColor:current_channel?.color}}
-  className='w-full p-2 flex items-center justify-center font-bold text-xl '>
+  className='w-full p-2 hidden md:flex md:items-center md:justify-center font-bold text-xl '>
    {current_channel?.name}
  </div>
+ 
  <div className='fixed bottom-[10%] right-[4%]'>
     <TheIcon Icon={FaPlus} iconAction={()=> setIsOpen(prev => !prev)} size='50'/>
  </div>
