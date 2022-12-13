@@ -29,7 +29,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ user, avatar, setOpen 
     };
 
     return (
-        <div className=' h-fit min-h-[80%] p-2  dark:bg-slate-900 bg-slate-300 
+        <div className=' h-fit w-full min-h-[80%] p-2  dark:bg-slate-900 bg-slate-300 
         dark:text-slate-100 border rounded-md bg-opacity-100 text-xl
            shadow shadow-slate-300 flex flex-col justify-center items-center gap-5'>
 
@@ -40,7 +40,8 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ user, avatar, setOpen 
                 <img
                     src={avatar}
                     alt={""}
-                    className="rounded-full hover:rounded-md min-h-[100px] max-h-[300px] aspect-square 
+                    className="rounded-full hover:rounded-md 
+                    min-h-[100px] max-h-[300px] aspect-square 
                     border-2 border-slate-900 dark:border-slate-100
                 "
                 />

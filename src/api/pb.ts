@@ -1,4 +1,7 @@
+import { client } from "../pb/config";
+
 export const getRecords=async(url:string)=>{
+
 try{
 let headersList = {
   Accept: "*/*",
@@ -53,3 +56,38 @@ return await response.json();
 }
 
 }
+
+
+export const joinChannel = async (
+  user_id: string,
+  channel_id: string
+) => {
+  // or fetch only the first record that matches the specified filter
+  const record = await client
+    .collection("members")
+    .getFirstListItem(
+      `emp="${user_id}"&channel="${channel_id}"`,
+      { expand: "" }
+    );
+};
+
+export const getChannelsJoinStatus = async (
+  user_id: string,
+  channel_id: string
+) => {
+  // or fetch only the first record that matches the specified filter
+  
+  const url = `https://emps.tigawanna.tech/api/collections/members/records?filter=emp="${user_id}"&channel="${channel_id}"`
+
+  const members_url = `https://emps.tigawanna.tech/api/collections/members/records?filter=emp="${user_id}"&channel="${channel_id}"`;
+ 
+  try {
+     const record = await getRecords(members_url);
+     console.log("is part  === ", record.items);
+     return record.items[0]
+
+  } catch (e) {
+    console.log("error ==== ", e);
+    return null;
+  }
+};
