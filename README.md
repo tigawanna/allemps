@@ -197,56 +197,36 @@ POST /api/join/channel
 
 **all members** 
 ```ts
-GET /api/collections/members/records
+GET /api/all/channel/members
 ```
-**response 200:**
+
+| param     | type   | desiciption|
+|------------|--------|-----------|
+| channel_name|  string  | channel name|
+
+
 ```json
+response status 200
 {
-  "page": 1,
-  "perPage": 30,
-  "totalPages": 1,
-  "totalItems": 2,
-  "items": [
-    {
-      "id": "RECORD_ID",
-      "collectionId": "itx3woboq8f3wao",
-      "collectionName": "members",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "channel": "RELATION_RECORD_ID",
-      "emp": "RELATION_RECORD_ID"
-    },
-    {
-      "id": "RECORD_ID",
-      "collectionId": "itx3woboq8f3wao",
-      "collectionName": "members",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "channel": "RELATION_RECORD_ID",
-      "emp": "RELATION_RECORD_ID"
-    }
-  ]
+    "message":"members in the channel", 
+    "data":[],
+    "status":200
 }
 ```
 
  **add member**
  ```ts
-POST /api/collections/members/records
+POST /api/join/channel
  ```
 | param     | type   | desiciption|
 |------------|--------|-----------|
-|channel|  string  | channel id user wants to join|
-|emp |  string      | logged in  user id |
+| channel_name|  string  | channel name|
 
-**response 200:**
+
 ```json
+response status 200
 {
-  "id": "RECORD_ID",
-  "collectionId": "itx3woboq8f3wao",
-  "collectionName": "members",
-  "created": "2022-01-01 01:00:00.123Z",
-  "updated": "2022-01-01 23:59:59.456Z",
-  "channel": "RELATION_RECORD_ID",
-  "emp": "RELATION_RECORD_ID"
+    "message":"member added successfully",
+    "status":200
 }
 ```
