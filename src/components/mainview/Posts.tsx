@@ -1,22 +1,21 @@
 import React from 'react'
 import { QueryStateWrapper } from '../../shared/extra/QueryStateWrapper';
 import {  useQuery } from '@tanstack/react-query';
-import {  getChannelUrl, getRecords} from '../../api/pb';
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus } from 'react-icons/fa';
-import { ChannelItem, PBPosts} from '../../api/pb-api-types';
+import { PBPosts} from '../../api/pb-api-types';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
 import { PostsCard } from './PostsCard';
 import { AddPost } from './PostsForm';
-import { useParams } from 'react-router-dom';
-import { PBChannels } from './../../api/pb-api-types';
 import { User } from '../../utils/types';
 import { MainViewParamsT } from '../../pages/mainview/MainView';
+import { getPosts } from '../../api/methods';
+import { FlaskChannel } from '../../api/flask-types';
 
 interface PostsProps {
   user?:User
   params: Readonly<Partial<MainViewParamsT>>
-  current_channel?: ChannelItem
+  current_channel?: FlaskChannel
 }
 
 
@@ -26,7 +25,7 @@ const channel_id = params.channel_id??"0ds0fovs0nsas0k"
 const posts_url = `https://emps.tigawanna.tech/api/collections/posts/records?expand=channel,emp&filter=channel="${channel_id}"&sort=-created`
 
 const [isOpen, setIsOpen] = React.useState(false);
-const query = useQuery(['posts',channel_id],()=>getRecords(posts_url))
+const query = useQuery(['posts',channel_id],()=>getPosts(1))
 
 const data = query?.data as PBPosts
 const posts_list = data?.items
@@ -39,11 +38,11 @@ return (
 <div className='w-full flex items-center p-2'>
   
   <div 
-  style={{backgroundColor:current_channel?.color}}
+
   className='w-full p-2 hidden md:flex md:items-center md:justify-center  '>
       <div className=" px-2 flex items-center justify-center
           text-xl bg-slate-900 text-slate-50 rounded-xl">
-          {current_channel?.name}
+          {current_channel?.channel_name}
       </div>
  </div>
  

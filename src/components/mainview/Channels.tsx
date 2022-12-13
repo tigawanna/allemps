@@ -6,7 +6,6 @@ import { RiArrowDropDownLine } from 'react-icons/ri'
 import { TheIcon } from '../../shared/extra/TheIcon';
 import { FaPlus,FaSearch } from 'react-icons/fa';
 import { concatErrors } from '../../utils/utils';
-import { ChannelItem, PBChannels } from '../../api/pb-api-types';
 import { FormOptions } from '../../shared/form/types';
 import TheForm from './../../shared/form/TheForm';
 import { ReactModalWrapper } from '../../shared/extra/ReactModalWrapper';
@@ -14,11 +13,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { User } from '../../utils/types';
 import { Channel } from './Channel';
 import { MainViewParamsT } from '../../pages/mainview/MainView';
+import { getChannels } from './../../api/methods';
+import { FlaskChannel, FlaskChannels } from './../../api/flask-types';
 
 interface ChannelsProps {
    user?:User
    params: Readonly<Partial<MainViewParamsT>>
-   current_channel?:ChannelItem
+   current_channel?:FlaskChannel
 closeModal?: () => void
 }
 
@@ -27,17 +28,14 @@ export const Channels: React.FC<ChannelsProps> = ({user,params,closeModal}) => {
 const [show,setShow] = React.useState(true)
 const [keyword, setKeyword] = React.useState("")
 const [isOpen, setIsOpen] = React.useState(false);
-
-const cahhnels_url = `https://emps.tigawanna.tech/api/collections/channels/records?sort=-created&filter=name~"${keyword}"`
-const query = useQuery(['channels',keyword],()=>getRecords(cahhnels_url))
-
-const data = query?.data as PBChannels
-const channels = data?.items
+const query = useQuery(['channels',keyword],()=>getChannels())
+const data = query?.data as FlaskChannels
+const channels = data?.data
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
   setKeyword(e.target.value)
 }
-// console.log("data === ",data)
+console.log("channels data === ",data)
 return (
 <div className='w-full flex flex-col items-center justify-center p-2'>
 
@@ -82,7 +80,7 @@ isLoading={query.isLoading}
 { show&&channels?.map((channel,index)=>{
     return (<Channel channel={channel} user={user} 
         curr_channel={params.channel_id ??"0ds0fovs0nsas0k"} 
-        key={channel.id} closeModal={closeModal}/>)
+        key={channel?.id} closeModal={closeModal}/>)
 })
 }
 <button className='mt-5'>...</button>

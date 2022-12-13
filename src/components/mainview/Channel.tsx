@@ -1,6 +1,5 @@
 
 import { FaPlus, FaExternalLinkAlt } from "react-icons/fa";
-import { ChannelItem } from "../../api/pb-api-types";
 import { TheIcon } from "../../shared/extra/TheIcon";
 import { User } from '../../utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,11 +8,12 @@ import { ReactModalWrapper } from './../../shared/extra/ReactModalWrapper';
 import React from 'react'
 import { concatErrors } from "../../utils/utils";
 import { Link } from 'react-router-dom';
+import { FlaskChannel } from "../../api/flask-types";
 
 
 
 interface ChannelProps {
-    channel: ChannelItem
+    channel:FlaskChannel
     user: User | undefined
     curr_channel: string | undefined
     closeModal?: () => void
@@ -40,14 +40,13 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel,clo
         to={'/main/' + channel.id}>
         <div 
         onClick={() => closeModal && closeModal()}
-        style={{ backgroundColor: curr_channel === channel.id ? "#452870" : "", 
-        color: curr_channel === channel.id ? "#ffffff" : "" }}
+ 
         className='w-full px-2 hover:bg-slate-300 dark:hover:bg-slate-800
         flex items-center justify-center 
         text-lg md:text-sm 
         border-b dark:border-b-[1px] rounded-2xl
          border-slate-600 dark:border-slate-300 shadow-lg dark:shadow-slate-600 '>
-        #{channel.name}
+        #{channel.channel_name}
         
         </div>
     </Link>
@@ -60,7 +59,7 @@ export const Channel: React.FC<ChannelProps> = ({ channel, user,curr_channel,clo
 
 
 interface JoinChannelProps {
-    channel: ChannelItem
+    channel: FlaskChannel
     user: User | undefined
 }
 
@@ -71,7 +70,7 @@ export const JoinChannel: React.FC<JoinChannelProps> = ({channel,user}) => {
         try {
             const data = {
                 "channel": channel.id,
-                "emp": user?.id
+                "emp": user?.email
             };
             return await client.collection('members').create(data);
         }
@@ -95,7 +94,7 @@ return (
      </div>
 
         <div
-            style={{ backgroundColor: channel.color }}
+      
             className=" w-[50%] h-3   aspect-square flex items-center justify-center p-3">
         </div>
         <div

@@ -14,7 +14,7 @@ import { TheIcon } from "../../shared/extra/TheIcon";
 import { FaSearch } from "react-icons/fa";
 import { concatErrors } from "../../utils/utils";
 import {
-  ChannelItem,
+
   PBMembers,
 } from "../../api/pb-api-types";
 import { FormOptions } from "../../shared/form/types";
@@ -25,12 +25,13 @@ import { User } from "../../utils/types";
 import { makeUrl } from "./../../pb/config";
 import { FaUserCircle } from "react-icons/fa";
 import { MainViewParamsT } from "../../pages/mainview/MainView";
+import { FlaskChannel } from "../../api/flask-types";
 
 
 interface MembersProps {
   user?: User;
   params: Readonly<Partial<MainViewParamsT>>;
-  current_channel?: ChannelItem;
+  current_channel?: FlaskChannel;
   closeModal?: () => void;
 }
 
@@ -76,7 +77,7 @@ border shadow-md shadow-slate-600  border-slate-500 dark:border-slate-200"
           <div className="w-[95%] flex items-center justify-center font-bold text-xl p-2">
             {params.channel_id ? (
               <div className="w-[95%] flex items-center justify-center font-bold text-xl p-2">
-                {current_channel?.name} members
+                {current_channel?.channel_name} members
               </div>
             ) : (
               <div className="w-[95%] flex items-center justify-center font-bold text-xl p-2">

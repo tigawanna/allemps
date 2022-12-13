@@ -1,6 +1,5 @@
 import React from "react";
 import { FaUsers, FaBars } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { Channels } from "../../components/mainview/Channels";
 import { Members } from "../../components/mainview/Members";
 import { Posts } from "../../components/mainview/Posts";
@@ -8,11 +7,10 @@ import { TheIcon } from "../../shared/extra/TheIcon";
 import { User } from "../../utils/types";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getRecords } from "../../api/pb";
-import { getChannelUrl } from "./../../api/pb";
 import { QueryStateWrapper } from "./../../shared/extra/QueryStateWrapper";
 import { PBChannels } from "./../../api/pb-api-types";
 import { ReactModalWrapper } from "./../../shared/extra/ReactModalWrapper";
+import { getChannels } from './../../api/methods';
 
 interface MianViewProps {
   user?: User;
@@ -32,7 +30,7 @@ export const MainView: React.FC<
     PBChannels,
     string[]
   >(["channels", channel_id], () =>
-    getRecords(getChannelUrl(channel_id))
+  getChannels()
   );
 
   const [showChannels, setShowChannels] =
@@ -40,7 +38,7 @@ export const MainView: React.FC<
   const [showMembers, setShowMembers] =
     React.useState(false);
 
-  const curr_channel = query.data?.items[0];
+  const curr_channel = query?.data?.items&&query?.data?.items[0];
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row items-center justify-between">
