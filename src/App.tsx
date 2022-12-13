@@ -16,7 +16,7 @@ import { getUser } from './pb/config';
 import { LoaderElipse } from './shared/loaders/Loaders';
 import { EmpsLayout } from './pages/emp/EmpsLayout';
 import { Profile } from './pages/emp/Profile';
-import { MainMobileView } from './pages/mainview/MainMobileView';
+
 
 
 
