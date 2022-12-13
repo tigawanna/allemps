@@ -41,42 +41,36 @@
 ```
 
 ### Used api endpoints 
+ ```ts
+ baseurl: 'https://allempservice.onrender.com/'
+ ```
+
 *AUTH*
 
 `SIGNUP`
 ```ts
-POST /api/collections/emps/records
+POST api/register
 ```
 | param          | type                 |
 |-----------------|----------------------|
 |email|string|
 |password         |        string      |
-|confirmPassword     |        string      |
+| username     |        string      |
+| first_name     |        string      |
+| last_name     |        string      |
 
 **Response**:
 ```json
 {
-  "id": "RECORD_ID",
-  "collectionId": "v413duct7bz5oxl",
-  "collectionName": "emps",
-  "created": "2022-01-01 01:00:00.123Z",
-  "updated": "2022-01-01 23:59:59.456Z",
-  "username": "username123",
-  "verified": false,
-  "emailVisibility": true,
-  "email": "test@example.com",
-  "avatar": "filename.jpg",
-  "name": "test",
-  "bio": "test",
-  "country": "test",
-  "phone": "test",
-  "cv": "https://example.com"
+  "email": "users1@gmail.com",
+  "message": "user registered successfully",
+  "status": 200
 }
 ```
 
 `SIGNIN`
 ```ts
-POST /api/collections/emps/auth-with-password
+POST /api/login
 ```
 | param          | type                 |
 |-----------------|----------------------|
@@ -86,24 +80,11 @@ POST /api/collections/emps/auth-with-password
 **Response** :
 ```json
 {
-  "token": "JWT_TOKEN",
-  "record": {
-    "id": "RECORD_ID",
-    "collectionId": "v413duct7bz5oxl",
-    "collectionName": "emps",
-    "created": "2022-01-01 01:00:00.123Z",
-    "updated": "2022-01-01 23:59:59.456Z",
-    "username": "username123",
-    "verified": false,
-    "emailVisibility": true,
-    "email": "test@example.com",
-    "avatar": "filename.jpg",
-    "name": "test",
-    "bio": "test",
-    "country": "test",
-    "phone": "test",
-    "cv": "https://example.com"
-  }
+  "message": "successful login",
+  "email": "users1@gmail.com",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJzMUBnbWFpbC5jb20iLCJ1c2VyaWQiOjIxLCJleHAiOjE3MDI1MDE4MjJ9.IcP64lou7XRJivXWevkyh50-QBt_bvbHIRmSIHOJ3kc",
+  "status": 200
+  
 }
 ```
 
@@ -111,40 +92,25 @@ POST /api/collections/emps/auth-with-password
 
 **all posts** 
 ```ts
-GET /api/collections/posts/records
+GET /api/channel/posts
 ```
+| param     | type   | desiciption|
+|------------|--------|-----------|
+| id |  string  | channel id as query param|
+
+
 **response 200:**
 
 ```json
 {
-  "page": 1,
-  "perPage": 30,
-  "totalPages": 1,
-  "totalItems": 2,
-  "items": [
+  "data": [
     {
-      "id": "RECORD_ID",
-      "collectionId": "ty77b4sbvnzgcl6",
-      "collectionName": "posts",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "title": "test",
-      "body": "test",
-      "media": "filename.jpg",
-      "emp": "RELATION_RECORD_ID",
-      "channel": "RELATION_RECORD_ID"
+      "post": "Hello everyone, am happy to be here.",
+      "user_id": 15
     },
     {
-      "id": "RECORD_ID",
-      "collectionId": "ty77b4sbvnzgcl6",
-      "collectionName": "posts",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "title": "test",
-      "body": "test",
-      "media": "filename.jpg",
-      "emp": "RELATION_RECORD_ID",
-      "channel": "RELATION_RECORD_ID"
+      "post": "Happy to be part of this.",
+      "user_id": 16
     }
   ]
 }
@@ -153,97 +119,77 @@ GET /api/collections/posts/records
 ```
  **add post**
  ```ts
- POST /api/collections/posts/records
+ POST /api/add/post
  ```
 | param     | type   | desiciption|
 |------------|--------|-----------|
-| title |  string  | post title|
-| body |  string  | post body |
-| media |  File  | 	File object Set to null to delete already uploaded file(s). |
-| channel|  string  | channel id user is posting to|
-| emp |  string    | logged in  user id |
+| post |  string  | post title|
+| channel_name |  string  | channel name |
+| channel_id | string  | channel id |
 
 **response 200:**
 ```json
 {
-  "id": "RECORD_ID",
-  "collectionId": "ty77b4sbvnzgcl6",
-  "collectionName": "posts",
-  "created": "2022-01-01 01:00:00.123Z",
-  "updated": "2022-01-01 23:59:59.456Z",
-  "title": "test",
-  "body": "test",
-  "media": "filename.jpg",
-  "emp": "RELATION_RECORD_ID",
-  "channel": "RELATION_RECORD_ID"
+    "message":"Message sent successfully",
+    "status":200
 }
 ```
-
+**response 400:**
+```json
+{
+    "message":"Not allowed to send messages to this channel. Join channel first",
+    "status":400
+}
+```
 
 
 *CHANNELS*
 
 **all channels** 
 ```ts
-GET /api/collections/channels/records
+GET /api/all/channels
 ```
 
 **response 200:**
 ```json
 {
-  "page": 1,
-  "perPage": 30,
-  "totalPages": 1,
-  "totalItems": 2,
-  "items": [
+  "data": [
     {
-      "id": "RECORD_ID",
-      "collectionId": "ncv5elwllrc1vjo",
-      "collectionName": "channels",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "name": "test",
-      "description": "test",
-      "color": "test",
-      "banner": "filename.jpg"
+      "channel_name": "General",
+      "id": 1
     },
     {
-      "id": "RECORD_ID",
-      "collectionId": "ncv5elwllrc1vjo",
-      "collectionName": "channels",
-      "created": "2022-01-01 01:00:00.123Z",
-      "updated": "2022-01-01 23:59:59.456Z",
-      "name": "test",
-      "description": "test",
-      "color": "test",
-      "banner": "filename.jpg"
+      "channel_name": "Software Engineering",
+      "id": 2
+    },
+    {
+      "channel_name": "Devops Engineering",
+      "id": 3
+    },
+    {
+      "channel_name": "Backend Engineering",
+      "id": 4
+    },
+    {
+      "channel_name": "Frontend Engineering",
+      "id": 5
     }
   ]
 }
 ```
- **add channel**
+ **join channel**
  ```ts
-POST /api/collections/channels/records
+POST /api/join/channel
  ```
 | param     | type   | desiciption|
 |------------|--------|-----------|
-|name|  string  | channel name|
-| description |  string  | brief channel description |
-| color |  string  | channel theme color |
-| banner |  File  | 	File object Set to null to delete already uploaded file(s). |
-| creator |  string      | logged in  user id |
+| channel_name|  string  | channel name|
+
 **response 200:**
 ```json
 {
-  "id": "RECORD_ID",
-  "collectionId": "ncv5elwllrc1vjo",
-  "collectionName": "channels",
-  "created": "2022-01-01 01:00:00.123Z",
-  "updated": "2022-01-01 23:59:59.456Z",
-  "name": "test",
-  "description": "test",
-  "color": "test",
-  "banner": "filename.jpg"
+    "message":"member added successfully",
+    "status":200
 }
 ```
 
