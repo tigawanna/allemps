@@ -8,9 +8,9 @@ import { User } from "../../utils/types";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { QueryStateWrapper } from "./../../shared/extra/QueryStateWrapper";
-import { PBChannels } from "./../../api/pb-api-types";
 import { ReactModalWrapper } from "./../../shared/extra/ReactModalWrapper";
 import { getChannels } from './../../api/methods';
+import { FlaskChannel } from "../../api/flask-types";
 
 interface MianViewProps {
   user?: User;
@@ -25,9 +25,9 @@ export const MainView: React.FC<
   const channel_id =
     params.channel_id ?? "0ds0fovs0nsas0k";
   const query = useQuery<
-    PBChannels,
+    FlaskChannel,
     unknown,
-    PBChannels,
+    FlaskChannel,
     string[]
   >(["channels", channel_id], () =>
   getChannels()
@@ -38,14 +38,12 @@ export const MainView: React.FC<
   const [showMembers, setShowMembers] =
     React.useState(false);
 
-  const curr_channel = query?.data?.items&&query?.data?.items[0];
+  const curr_channel = query?.data&&query?.data
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row items-center justify-between">
       <div
-        style={{
-          backgroundColor: curr_channel?.color,
-        }}
+
         className="w-full flex md:hidden  items-center justify-between p-1"
       >
         <TheIcon
@@ -62,7 +60,7 @@ export const MainView: React.FC<
         >
           <div className=" px-2 flex items-center justify-center
           text-xl bg-slate-600 rounded-xl">
-            {curr_channel?.name}
+            {curr_channel?.channel_name}
           </div>
         </QueryStateWrapper>
         <TheIcon

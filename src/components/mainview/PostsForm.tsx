@@ -59,7 +59,7 @@ export const AddPost: React.FC<AddPostProps> = ({closeModal,ch_id,user}) => {
         { field_name: "title", field_type: "text", default_value: "", editing },
         { field_name: "body", field_type: "textarea", default_value: "", editing },
         { field_name: "media", field_type: "file", default_value: "", editing },
-        { field_name: "emp", field_type: "text", default_value:user?.id, editing, hidden: true },
+        { field_name: "emp", field_type: "text", default_value:user?.email, editing, hidden: true },
         { field_name: "channel", field_type: "text", default_value:ch_id, editing, hidden: true },
 
     ]
