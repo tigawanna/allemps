@@ -35,7 +35,7 @@ export const EmailPasswordSignup: React.FC<EmailPasswordSignupProps> = ({}) => {
             vars.payload.get('firstname') as string,
             vars.payload.get('lastname') as string
         )
-            console.log("result ===== ",result)
+            // console.log("result ===== ",result)
         return await loginUser(
             vars.payload.get('email') as string,
             vars.payload.get('password') as string

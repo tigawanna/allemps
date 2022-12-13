@@ -41,20 +41,7 @@ export const EmailPasswordLogin: React.FC<EmailPasswordLoginProps> = ({}) => {
        }
 
 
-        // return client.collection('emps').authWithPassword(
-        //     vars.payload.get('email') as string,
-        //      vars.payload.get('password') as string)
-        //          .then((res) => {
-        //         queryClient.setQueryData(['user'], () => res.record);
-        //         setAuthing(false)
-        //         navigate('/')
-        //     })
-        //      .catch((err)=>{
-        //     setAuthing(false)
-        //     console.log("error in auth mutation ",err.message)
-        //     setError({ name: "main", message: err.messge})
-        
-        // })
+
     },
     {
         onSettled: () => {
